@@ -1,0 +1,479 @@
+---
+/**
+ * Hero.astro
+ * Seção hero fullscreen com mockup de celular e animações de entrada.
+ */
+---
+
+<section class="hero" aria-label="Introdução">
+
+  <!-- Coluna esquerda: textos e CTAs -->
+  <div class="hero-content">
+
+    <!-- Badge pill -->
+    <div class="hero-badge" style="animation: fadeSlideUp 400ms ease-out 0ms both;">
+      <span>Especialistas em Condomínios</span>
+    </div>
+
+    <!-- H1 -->
+    <h1 class="hero-title" style="animation: fadeSlideUp 400ms ease-out 150ms both;">
+      Seu condomínio protegido,<br>
+      <span class="hero-title-gold">monitorado</span>
+    </h1>
+
+    <!-- Parágrafo descritivo -->
+    <p class="hero-description" style="animation: fadeSlideUp 400ms ease-out 300ms both;">
+      Manutenção especializada em bombas, painéis elétricos e geradores —
+      com tecnologia de monitoramento em tempo real para síndicos.
+    </p>
+
+    <!-- CTAs -->
+    <div class="hero-ctas" style="animation: fadeSlideUp 400ms ease-out 450ms both;">
+      <a href="#contato" class="cta-primary">
+        Solicitar Orçamento
+      </a>
+      <a href="#tecnologia" class="cta-secondary">
+        Ver o Sistema
+      </a>
+    </div>
+  </div>
+
+  <!-- Coluna direita: mockup de celular -->
+  <div class="hero-mockup-wrapper" style="animation: fadeSlideLeft 400ms ease-out 300ms both;" aria-hidden="true">
+    <div class="phone-mockup">
+      <!-- Câmera frontal simulada -->
+      <div class="phone-camera"></div>
+
+      <!-- Tela do app -->
+      <div class="phone-screen">
+
+        <!-- Header do app -->
+        <div class="app-header">
+          <span class="app-header-title">Caixas d'água</span>
+          <span class="app-live-dot" aria-hidden="true">
+            <span class="live-indicator"></span>
+            Ao vivo
+          </span>
+        </div>
+
+        <!-- Card principal: nível -->
+        <div class="app-card">
+          <div class="card-row">
+            <span class="card-label">Nível atual</span>
+            <span class="card-value">73%</span>
+          </div>
+
+          <!-- Barra de nível animada -->
+          <div class="level-track" role="progressbar" aria-valuenow="73" aria-valuemin="0" aria-valuemax="100" aria-label="Nível da caixa d'água: 73%">
+            <div class="level-fill"></div>
+          </div>
+        </div>
+
+        <!-- Badges de limites -->
+        <div class="app-badges">
+          <span class="badge badge-red">
+            <span class="badge-dot"></span>
+            SCI 20%
+          </span>
+          <span class="badge badge-yellow">
+            <span class="badge-dot"></span>
+            Alerta 80%
+          </span>
+          <span class="badge badge-red">
+            <span class="badge-dot"></span>
+            Crítico 15%
+          </span>
+        </div>
+
+        <!-- Mini gráfico de histórico (SVG) -->
+        <div class="app-chart">
+          <p class="chart-label">Histórico — últimas 24h</p>
+          <svg
+            viewBox="0 0 220 60"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="chart-svg"
+            aria-hidden="true"
+          >
+            <!-- Área preenchida sob a linha -->
+            <defs>
+              <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#C9A263" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="#C9A263" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path
+              d="M0 45 L20 38 L45 32 L70 28 L90 35 L110 22 L135 18 L160 20 L185 17 L220 15 L220 60 L0 60 Z"
+              fill="url(#chartGrad)"
+            />
+            <!-- Linha principal -->
+            <path
+              d="M0 45 L20 38 L45 32 L70 28 L90 35 L110 22 L135 18 L160 20 L185 17 L220 15"
+              stroke="#C9A263"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <!-- Ponto atual -->
+            <circle cx="220" cy="15" r="3" fill="#C9A263"/>
+          </svg>
+        </div>
+
+      </div><!-- /phone-screen -->
+    </div><!-- /phone-mockup -->
+  </div>
+
+</section>
+
+<style>
+  /* ── Seção hero ── */
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    min-height: 100dvh;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 4rem;
+    overflow: hidden;
+  }
+
+  /* Grid pattern de fundo — limitado à seção hero */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201, 162, 99, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201, 162, 99, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Gradiente radial decorativo */
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: -10%;
+    width: 60%;
+    height: 80%;
+    background: radial-gradient(ellipse at center, rgba(201, 162, 99, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Coluna esquerda ── */
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    flex: 0 0 60%;
+    max-width: 60%;
+  }
+
+  /* Badge */
+  .hero-badge {
+    display: inline-flex;
+    width: fit-content;
+    padding: 0.375rem 0.875rem;
+    border: 1px solid rgba(201, 162, 99, 0.3);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* H1 */
+  .hero-title {
+    font-size: clamp(2.25rem, 4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+  }
+
+  .hero-title-gold {
+    color: var(--color-gold);
+  }
+
+  /* Parágrafo */
+  .hero-description {
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    color: var(--color-muted);
+    max-width: 480px;
+    line-height: 1.7;
+  }
+
+  /* CTAs */
+  .hero-ctas {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.75rem;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #0F1117;
+    background-color: var(--color-gold);
+    text-decoration: none;
+    box-shadow: 0 0 24px rgba(201, 162, 99, 0.3);
+    transition:
+      background-color 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .cta-primary:hover,
+  .cta-primary:focus-visible {
+    background-color: var(--color-gold-light);
+    box-shadow: 0 0 32px rgba(232, 192, 112, 0.4);
+    outline: none;
+  }
+
+  .cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-text);
+    text-decoration: none;
+    transition:
+      border-color 200ms ease,
+      color 200ms ease;
+  }
+
+  .cta-secondary:hover,
+  .cta-secondary:focus-visible {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+    outline: none;
+  }
+
+  /* ── Coluna direita: mockup ── */
+  .hero-mockup-wrapper {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Telefone */
+  .phone-mockup {
+    position: relative;
+    width: 260px;
+    border: 2px solid var(--color-border);
+    border-radius: 44px;
+    background: var(--color-surface);
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.04),
+      0 32px 80px rgba(0, 0, 0, 0.5),
+      0 0 40px rgba(201, 162, 99, 0.05);
+    overflow: hidden;
+    padding-bottom: 1.5rem;
+  }
+
+  /* Câmera frontal */
+  .phone-camera {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    margin: 14px auto 10px;
+  }
+
+  /* Tela interna */
+  .phone-screen {
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* Header do app */
+  .app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 0.875rem;
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+  }
+
+  .app-header-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .app-live-dot {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: #4ade80;
+  }
+
+  /* Indicador pulsante "Ao vivo" */
+  .live-indicator {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #4ade80;
+    animation: pulse-green 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-green {
+    0%, 100% { opacity: 1;   transform: scale(1);    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
+    50%       { opacity: 0.8; transform: scale(1.15); box-shadow: 0 0 0 4px rgba(74, 222, 128, 0); }
+  }
+
+  /* Card de nível */
+  .app-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 0.75rem 0.875rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .card-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-label {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .card-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-gold);
+  }
+
+  /* Barra de nível */
+  .level-track {
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.06);
+    overflow: hidden;
+  }
+
+  .level-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--color-gold), var(--color-gold-light));
+    animation: fillBar 1.2s ease-out 600ms both;
+  }
+
+  /* Badges de limites */
+  .app-badges {
+    display: flex;
+    gap: 0.375rem;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .badge-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .badge-red {
+    background: rgba(239, 68, 68, 0.12);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+  .badge-red .badge-dot { background: #ef4444; }
+
+  .badge-yellow {
+    background: rgba(234, 179, 8, 0.12);
+    color: #facc15;
+    border: 1px solid rgba(234, 179, 8, 0.2);
+  }
+  .badge-yellow .badge-dot { background: #eab308; }
+
+  /* Gráfico de histórico */
+  .app-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: 0.625rem 0.875rem;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+  }
+
+  .chart-label {
+    font-size: 0.625rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .chart-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ── Responsividade ── */
+  @media (max-width: 768px) {
+    .hero {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 4.5rem 1.25rem 3rem;
+      min-height: 100dvh;
+    }
+
+    .hero-content {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+
+    .hero-mockup-wrapper {
+      display: none;
+    }
+  }
+</style>

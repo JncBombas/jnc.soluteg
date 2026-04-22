@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+/* ─── Variáveis do Design System ─── */
+:root {
+  --color-bg:         #0F1117;
+  --color-surface:    #1A1D27;
+  --color-border:     #2A2D3A;
+  --color-gold:       #C9A263;
+  --color-gold-light: #E8C070;
+  --color-text:       #F0F0F0;
+  --color-muted:      #8B8FA8;
+
+  /* Tipografia */
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  /* Parallax do grid hero — atualizadas pelo JS */
+  --para-x: 0;
+  --para-y: 0;
+}
+
+/* ─── Reset e base ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100dvh;
+  background-color: var(--color-bg);
+  line-height: 1.6;
+}
+
+/* ─── Animações de entrada ─── */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fillBar {
+  from { width: 0%; }
+  to   { width: 73%; }
+}
+
+/* ─── Scroll Reveal global ─── */
+
+/* Padrão: fade + translateY */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity   500ms ease var(--reveal-delay, 0ms),
+    transform 500ms ease var(--reveal-delay, 0ms);
+}
+
+/* Variante: fade + translateX (da esquerda) */
+[data-reveal="left"] {
+  transform: translateX(-28px);
+}
+
+/* Variante: fade + scale */
+[data-reveal="scale"] {
+  transform: scale(0.94);
+}
+
+/* Estado revelado — igual para todos os tipos */
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Respeita preferência por animações reduzidas */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Garante visibilidade dos elementos reveal mesmo sem animação */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

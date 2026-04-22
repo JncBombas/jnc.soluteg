@@ -1,0 +1,133 @@
+---
+/**
+ * index.astro
+ * Página principal — JNC Comércio e Serviços
+ * Ordem: Header → Hero → Stats → Serviços → Tecnologia →
+ *        Prova Social → Contato → Footer
+ */
+import Header       from '../components/Header.astro';
+import Hero         from '../components/Hero.astro';
+import Stats        from '../components/Stats.astro';
+import Servicos     from '../components/Servicos.astro';
+import Tecnologia   from '../components/Tecnologia.astro';
+import ProvasSocial from '../components/ProvasSocial.astro';
+import Contato      from '../components/Contato.astro';
+import Footer          from '../components/Footer.astro';
+import BotaoFlutuante  from '../components/BotaoFlutuante.astro';
+import '../styles/global.css';
+
+const siteUrl     = 'https://jnc.soluteg.com.br';
+const title       = 'JNC Comércio e Serviços | Manutenção e Tecnologia para Condomínios';
+const description = 'Especialistas em bombas, painéis elétricos e geradores com monitoramento IoT em tempo real. Atendemos condomínios na Baixada Santista.';
+const ogImage     = `${siteUrl}/og-image.png`;
+
+/* Schema.org LocalBusiness */
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'JNC Comércio e Serviços Técnicos',
+  url: siteUrl,
+  telephone: '+5513981301010',
+  email: 'contato@soluteg.com.br',
+  areaServed: 'Baixada Santista',
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: 'SP',
+    addressCountry: 'BR',
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Serviços',
+    itemListElement: [
+      'Manutenção elétrica',
+      'Manutenção de bombas',
+      'Monitoramento IoT',
+      'Manutenção de geradores',
+    ].map((name) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name },
+    })),
+  },
+});
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Preconnect Google Fonts — evita render-blocking -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicons — logo JNC como ícone principal -->
+    <link rel="icon" type="image/png"      href="/logo-jnc.png" />
+    <link rel="apple-touch-icon"           href="/logo-jnc.png" />
+    <link rel="icon" type="image/x-icon"   href="/favicon.ico" sizes="48x48" />
+
+    <!-- SEO primário -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={siteUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content={siteUrl} />
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image"       content={ogImage} />
+    <meta property="og:image:width"  content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale"      content="pt_BR" />
+    <meta property="og:site_name"   content="JNC Comércio e Serviços" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image"       content={ogImage} />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json" is:inline set:html={jsonLd} />
+
+    <!-- Gerador Astro -->
+    <meta name="generator" content={Astro.generator} />
+  </head>
+
+  <body>
+    <!-- Cabeçalho sticky -->
+    <Header />
+
+    <!-- Conteúdo principal -->
+    <main id="main-content">
+      <Hero />
+      <Stats />
+      <Servicos />
+      <Tecnologia />
+      <ProvasSocial />
+      <Contato />
+    </main>
+
+    <!-- Rodapé fora do main (semântica correta) -->
+    <Footer />
+
+    <!-- Botão flutuante WhatsApp (revelado após 3s ou 300px scroll) -->
+    <BotaoFlutuante />
+
+    <!-- Scroll reveal: data-reveal em todos os componentes -->
+    <script>
+      import '../scripts/reveal';
+    </script>
+
+    <!-- Parallax + smooth scroll -->
+    <script>
+      import '../scripts/animations';
+    </script>
+  </body>
+</html>

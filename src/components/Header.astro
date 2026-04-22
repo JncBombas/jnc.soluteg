@@ -1,0 +1,347 @@
+---
+/**
+ * Header.astro
+ * Cabeçalho sticky com blur, wordmark Soluteg e navegação principal.
+ */
+---
+
+<header class="site-header" role="banner">
+  <div class="header-inner">
+
+    <!-- Marca: JNC logo em destaque + "Sistema Soluteg" em texto muted -->
+    <a href="/" class="brand" aria-label="JNC Comércio e Serviços — página inicial">
+      <img
+        src="/logo-jnc.png"
+        alt="JNC Comércio e Serviços"
+        class="brand-jnc"
+        width="44"
+        height="44"
+        loading="eager"
+        decoding="async"
+      />
+      <div class="brand-text">
+        <span class="brand-name">JNC Comércio e Serviços</span>
+        <span class="brand-sistema">Sistema Soluteg</span>
+      </div>
+    </a>
+
+    <!-- Navegação desktop -->
+    <nav class="nav-desktop" aria-label="Menu principal">
+      <a href="#servicos" class="nav-link">Serviços</a>
+      <a href="#tecnologia" class="nav-link">Tecnologia</a>
+      <a href="#sobre" class="nav-link">Sobre</a>
+      <a href="#contato" class="nav-link">Contato</a>
+    </nav>
+
+    <!-- CTA + Hamburger -->
+    <div class="header-actions">
+      <a
+        href="#contato"
+        class="btn-cta"
+        aria-label="Falar com especialista"
+      >
+        Falar com especialista
+      </a>
+
+      <!-- Botão hamburger (mobile) -->
+      <button
+        class="hamburger"
+        id="hamburger-btn"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Navegação mobile (colapsável) -->
+  <nav
+    class="nav-mobile"
+    id="mobile-nav"
+    aria-label="Menu mobile"
+    aria-hidden="true"
+  >
+    <a href="#servicos"   class="nav-link-mobile" tabindex="-1">Serviços</a>
+    <a href="#tecnologia" class="nav-link-mobile" tabindex="-1">Tecnologia</a>
+    <a href="#sobre"      class="nav-link-mobile" tabindex="-1">Sobre</a>
+    <a href="#contato"    class="nav-link-mobile" tabindex="-1">Contato</a>
+    <a
+      href="#contato"
+      class="nav-link-mobile btn-cta-mobile"
+      tabindex="-1"
+    >
+      Falar com especialista
+    </a>
+  </nav>
+</header>
+
+<style>
+  /* ── Estrutura principal ── */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    border-bottom: 1px solid var(--color-border);
+    background-color: rgba(15, 17, 23, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    /* Animação de entrada: fade-in + slide-down 400ms */
+    animation: fadeSlideDown 400ms ease-out both;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    height: 64px;
+  }
+
+  /* ── Marca ── */
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: opacity 200ms ease;
+  }
+
+  .brand:hover {
+    opacity: 0.85;
+  }
+
+  /* Logo JNC: cabe dentro do header de 64px */
+  .brand-jnc {
+    height: 44px;
+    width: 44px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+    border-radius: 6px;
+  }
+
+  /* Bloco de texto ao lado do logo */
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  /* Nome principal da marca */
+  .brand-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  /* Rótulo secundário — Soluteg em segundo plano */
+  .brand-sistema {
+    font-size: 0.6875rem;
+    font-weight: 400;
+    color: var(--color-muted);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  /* ── Nav desktop ── */
+  .nav-desktop {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .nav-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: color 200ms ease;
+    white-space: nowrap;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    color: var(--color-gold);
+    outline: none;
+  }
+
+  /* ── Ações (CTA + hamburger) ── */
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+  }
+
+  /* ── Botão CTA desktop ── */
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1.125rem;
+    border: 1px solid var(--color-gold);
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-gold);
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      background-color 200ms ease,
+      color 200ms ease;
+  }
+
+  .btn-cta:hover,
+  .btn-cta:focus-visible {
+    background-color: var(--color-gold);
+    color: #0F1117;
+    outline: none;
+  }
+
+  /* ── Hamburger ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 200ms ease;
+  }
+
+  .hamburger:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+
+  .hamburger-bar {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-muted);
+    border-radius: 2px;
+    transition:
+      transform 300ms ease,
+      opacity 300ms ease,
+      background-color 200ms ease;
+  }
+
+  .hamburger[aria-expanded="true"] .hamburger-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+    background-color: var(--color-gold);
+  }
+  .hamburger[aria-expanded="true"] .hamburger-bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger[aria-expanded="true"] .hamburger-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+    background-color: var(--color-gold);
+  }
+
+  /* ── Nav mobile ── */
+  .nav-mobile {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 350ms ease;
+    border-top: 1px solid transparent;
+  }
+
+  .nav-mobile.is-open {
+    max-height: 400px;
+    border-top-color: var(--color-border);
+  }
+
+  .nav-link-mobile {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-border);
+    transition: color 200ms ease, background-color 200ms ease;
+  }
+
+  .nav-link-mobile:hover,
+  .nav-link-mobile:focus-visible {
+    color: var(--color-gold);
+    background-color: rgba(201, 162, 99, 0.04);
+    outline: none;
+  }
+
+  .btn-cta-mobile {
+    margin: 1rem 1.5rem;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid var(--color-gold);
+    border-radius: 6px;
+    text-align: center;
+    color: var(--color-gold);
+    border-bottom: 1px solid var(--color-gold);
+  }
+
+  .btn-cta-mobile:hover {
+    background-color: var(--color-gold);
+    color: #0F1117;
+  }
+
+  /* ── Responsividade ── */
+  @media (max-width: 768px) {
+    .nav-desktop {
+      display: none;
+    }
+    .btn-cta {
+      display: none;
+    }
+    .hamburger {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  /* Controle do menu mobile */
+  const btn = document.getElementById('hamburger-btn');
+  const nav = document.getElementById('mobile-nav');
+
+  if (btn && nav) {
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      nav.setAttribute('aria-hidden', String(isOpen));
+      nav.classList.toggle('is-open', !isOpen);
+
+      /* Atualiza tabindex dos links */
+      nav.querySelectorAll<HTMLAnchorElement>('.nav-link-mobile').forEach((link) => {
+        link.tabIndex = isOpen ? -1 : 0;
+      });
+    });
+
+    /* Fecha o menu ao clicar em um link interno */
+    nav.querySelectorAll<HTMLAnchorElement>('.nav-link-mobile').forEach((link) => {
+      link.addEventListener('click', () => {
+        btn.setAttribute('aria-expanded', 'false');
+        nav.setAttribute('aria-hidden', 'true');
+        nav.classList.remove('is-open');
+        nav.querySelectorAll<HTMLAnchorElement>('.nav-link-mobile').forEach((l) => {
+          l.tabIndex = -1;
+        });
+      });
+    });
+  }
+</script>

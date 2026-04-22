@@ -1,0 +1,523 @@
+---
+/**
+ * BotaoFlutuante.astro
+ * Botão fixo de WhatsApp (canto inferior direito) com mini formulário.
+ * Aparece após 3s ou 300px de scroll.
+ * Ao clicar no botão, abre mini formulário com os 6 campos padrão.
+ * Ao enviar, monta a mensagem e redireciona para WhatsApp.
+ */
+---
+
+<!-- Botão flutuante + mini formulário -->
+<div class="flotante-wrapper" id="flotante-wrapper" aria-live="polite">
+
+  <!-- Mini formulário (começa fechado) -->
+  <div
+    class="mini-form-container"
+    id="mini-form-container"
+    role="dialog"
+    aria-modal="false"
+    aria-label="Formulário rápido de contato"
+    aria-hidden="true"
+  >
+    <!-- Cabeçalho do painel -->
+    <div class="mini-form-header">
+      <p class="mini-form-titulo">Fale com a JNC</p>
+      <button
+        class="mini-form-fechar"
+        id="mini-form-fechar"
+        aria-label="Fechar formulário"
+        type="button"
+      >
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Formulário -->
+    <form id="mini-form" class="mini-form" novalidate aria-label="Contato rápido via WhatsApp">
+
+      <!-- Nome -->
+      <div class="mf-group">
+        <label for="mf-nome" class="mf-label">Nome completo</label>
+        <input id="mf-nome" name="nome" type="text" class="mf-input" placeholder="Seu nome" required maxlength="120" autocomplete="name" />
+      </div>
+
+      <!-- Perfil -->
+      <div class="mf-group">
+        <label for="mf-perfil" class="mf-label">Perfil</label>
+        <select id="mf-perfil" name="perfil" class="mf-input mf-select" required>
+          <option value="" disabled selected>Seu perfil</option>
+          <option value="Síndico(a)">Síndico(a)</option>
+          <option value="Subsíndico(a)">Subsíndico(a)</option>
+          <option value="Conselheiro(a)">Conselheiro(a)</option>
+          <option value="Zelador(a)">Zelador(a)</option>
+          <option value="Gerente de manutenção">Gerente de manutenção</option>
+          <option value="Condômino(a)">Condômino(a)</option>
+          <option value="Outro">Outro</option>
+        </select>
+      </div>
+
+      <!-- Condomínio -->
+      <div class="mf-group">
+        <label for="mf-condo" class="mf-label">Condomínio / empresa</label>
+        <input id="mf-condo" name="condominio" type="text" class="mf-input" placeholder="Nome do condomínio" required maxlength="200" />
+      </div>
+
+      <!-- Cidade -->
+      <div class="mf-group">
+        <label for="mf-cidade" class="mf-label">Cidade</label>
+        <input id="mf-cidade" name="cidade" type="text" class="mf-input" placeholder="Ex: Praia Grande" required maxlength="100" />
+      </div>
+
+      <!-- WhatsApp -->
+      <div class="mf-group">
+        <label for="mf-tel" class="mf-label">Seu WhatsApp</label>
+        <input id="mf-tel" name="whatsapp" type="tel" class="mf-input" placeholder="(13) 9xxxx-xxxx" required maxlength="20" autocomplete="tel" />
+      </div>
+
+      <!-- Interesse -->
+      <div class="mf-group">
+        <label for="mf-interesse" class="mf-label">Interesse</label>
+        <select id="mf-interesse" name="interesse" class="mf-input mf-select" required>
+          <option value="" disabled selected>O que precisa?</option>
+          <option value="Manutenção elétrica">Manutenção elétrica</option>
+          <option value="Manutenção de bombas">Manutenção de bombas</option>
+          <option value="Manutenção de geradores">Manutenção de geradores</option>
+          <option value="Monitoramento IoT">Monitoramento IoT</option>
+          <option value="Contrato de manutenção preventiva">Manutenção preventiva</option>
+          <option value="Tudo acima / Quero saber mais">Quero saber mais</option>
+        </select>
+      </div>
+
+      <!-- Erro -->
+      <p class="mf-error" id="mf-error" role="alert" aria-live="polite"></p>
+
+      <button type="submit" class="mf-submit">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Enviar pelo WhatsApp
+      </button>
+    </form>
+  </div>
+
+  <!-- Botão principal (ícone WhatsApp) -->
+  <button
+    class="flotante-btn"
+    id="flotante-btn"
+    aria-label="Abrir formulário de contato via WhatsApp"
+    aria-expanded="false"
+    aria-controls="mini-form-container"
+    type="button"
+  >
+    <!-- Ícone WhatsApp -->
+    <svg class="flotante-icon flotante-icon-wpp" viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    <!-- Ícone fechar (visível quando aberto) -->
+    <svg class="flotante-icon flotante-icon-close" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+      <line x1="18" y1="6" x2="6" y2="18"/>
+      <line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+    <!-- Balão de notificação -->
+    <span class="flotante-badge" id="flotante-badge" aria-hidden="true">1</span>
+  </button>
+
+</div>
+
+<style>
+  /* ── Wrapper posicionado na tela ── */
+  .flotante-wrapper {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.75rem;
+
+    /* Oculto até o JS revelar */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms ease;
+  }
+
+  .flotante-wrapper.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* ── Mini formulário ── */
+  .mini-form-container {
+    width: 320px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+
+    /* Estado inicial: oculto acima */
+    transform: translateY(12px) scale(0.96);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
+      opacity 200ms ease;
+    transform-origin: bottom right;
+  }
+
+  .mini-form-container.is-open {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Cabeçalho do painel */
+  .mini-form-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    background-color: rgba(37, 211, 102, 0.06);
+  }
+
+  .mini-form-titulo {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .mini-form-fechar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--color-muted);
+    cursor: pointer;
+    transition: background-color 150ms ease, color 150ms ease;
+  }
+
+  .mini-form-fechar:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+    color: var(--color-text);
+  }
+
+  /* Formulário interno */
+  .mini-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem 1.25rem;
+    max-height: 72vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+  }
+
+  .mf-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mf-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-muted);
+  }
+
+  .mf-input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    outline: none;
+    transition:
+      border-color 200ms ease,
+      box-shadow 200ms ease;
+    -webkit-appearance: none;
+  }
+
+  .mf-input::placeholder {
+    color: var(--color-muted);
+    opacity: 0.7;
+  }
+
+  .mf-input:focus {
+    border-color: #25D366;
+    box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.15);
+  }
+
+  .mf-select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238B8FA8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 32px;
+  }
+
+  .mf-select option {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  .mf-error {
+    font-size: 12px;
+    color: #f87171;
+    min-height: 16px;
+  }
+
+  .mf-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #25D366;
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background-color 200ms ease,
+      transform 100ms ease;
+    margin-top: 0.25rem;
+  }
+
+  .mf-submit:hover {
+    background-color: #1ebe5d;
+  }
+
+  .mf-submit:active {
+    transform: scale(0.98);
+  }
+
+  .mf-submit:focus-visible {
+    outline: 2px solid #25D366;
+    outline-offset: 3px;
+  }
+
+  /* ── Botão principal ── */
+  .flotante-btn {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #25D366;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    box-shadow:
+      0 4px 16px rgba(37, 211, 102, 0.4),
+      0 2px 8px rgba(0, 0, 0, 0.3);
+    transition:
+      background-color 200ms ease,
+      transform 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .flotante-btn:hover {
+    background-color: #1ebe5d;
+    transform: scale(1.06);
+    box-shadow:
+      0 6px 20px rgba(37, 211, 102, 0.5),
+      0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .flotante-btn:active {
+    transform: scale(0.96);
+  }
+
+  .flotante-btn:focus-visible {
+    outline: 2px solid #25D366;
+    outline-offset: 4px;
+  }
+
+  /* Ícones — alterna entre WPP e fechar */
+  .flotante-icon {
+    position: absolute;
+    transition:
+      opacity 200ms ease,
+      transform 200ms ease;
+  }
+
+  .flotante-icon-wpp {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  .flotante-icon-close {
+    opacity: 0;
+    transform: scale(0.5) rotate(-90deg);
+  }
+
+  /* Quando o formulário está aberto */
+  .flotante-btn[aria-expanded="true"] .flotante-icon-wpp {
+    opacity: 0;
+    transform: scale(0.5) rotate(90deg);
+  }
+
+  .flotante-btn[aria-expanded="true"] .flotante-icon-close {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  /* Balão de notificação */
+  .flotante-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #ef4444;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--color-bg);
+    transition: opacity 200ms ease, transform 200ms ease;
+  }
+
+  .flotante-badge.is-hidden {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  /* ── Mobile: margem menor ── */
+  @media (max-width: 480px) {
+    .flotante-wrapper {
+      bottom: 1rem;
+      right: 1rem;
+    }
+
+    .mini-form-container {
+      width: calc(100vw - 2rem);
+    }
+  }
+</style>
+
+<script>
+  const wrapper    = document.getElementById('flotante-wrapper')   as HTMLDivElement | null;
+  const btn        = document.getElementById('flotante-btn')       as HTMLButtonElement | null;
+  const panel      = document.getElementById('mini-form-container') as HTMLDivElement | null;
+  const fecharBtn  = document.getElementById('mini-form-fechar')   as HTMLButtonElement | null;
+  const miniForm   = document.getElementById('mini-form')          as HTMLFormElement | null;
+  const mfError    = document.getElementById('mf-error')           as HTMLParagraphElement | null;
+  const badge      = document.getElementById('flotante-badge')     as HTMLSpanElement | null;
+
+  let isOpen  = false;
+  let revealed = false;
+
+  /* ── Revelação: 3s OU 300px de scroll ── */
+  function revelarBotao(): void {
+    if (revealed) return;
+    revealed = true;
+    wrapper?.classList.add('is-visible');
+  }
+
+  setTimeout(revelarBotao, 3000);
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY >= 300) revelarBotao();
+  }, { passive: true });
+
+  /* ── Toggle do painel ── */
+  function abrirPainel(): void {
+    isOpen = true;
+    panel?.classList.add('is-open');
+    panel?.setAttribute('aria-hidden', 'false');
+    btn?.setAttribute('aria-expanded', 'true');
+    /* Esconde badge ao abrir */
+    badge?.classList.add('is-hidden');
+  }
+
+  function fecharPainel(): void {
+    isOpen = false;
+    panel?.classList.remove('is-open');
+    panel?.setAttribute('aria-hidden', 'true');
+    btn?.setAttribute('aria-expanded', 'false');
+  }
+
+  btn?.addEventListener('click', () => {
+    if (isOpen) {
+      fecharPainel();
+    } else {
+      abrirPainel();
+    }
+  });
+
+  fecharBtn?.addEventListener('click', fecharPainel);
+
+  /* Fecha ao clicar fora do painel */
+  document.addEventListener('click', (e: MouseEvent) => {
+    if (!isOpen) return;
+    const target = e.target as Node;
+    if (!panel?.contains(target) && !btn?.contains(target)) {
+      fecharPainel();
+    }
+  });
+
+  /* ── Envio do mini formulário ── */
+  miniForm?.addEventListener('submit', (e: Event) => {
+    e.preventDefault();
+
+    const data       = new FormData(miniForm!);
+    const nome       = (data.get('nome')       as string ?? '').trim();
+    const perfil     = (data.get('perfil')     as string ?? '').trim();
+    const condominio = (data.get('condominio') as string ?? '').trim();
+    const cidade     = (data.get('cidade')     as string ?? '').trim();
+    const whatsapp   = (data.get('whatsapp')   as string ?? '').trim();
+    const interesse  = (data.get('interesse')  as string ?? '').trim();
+
+    if (!nome || !perfil || !condominio || !cidade || !whatsapp || !interesse) {
+      if (mfError) mfError.textContent = 'Preencha todos os campos.';
+      return;
+    }
+
+    if (mfError) mfError.textContent = '';
+
+    /* Monta mensagem no formato padrão */
+    const mensagem = [
+      'Olá, JNC! Vim pelo site.',
+      '',
+      `👤 Nome: ${nome}`,
+      `🏢 Perfil: ${perfil}`,
+      `🏠 Condomínio/Empresa: ${condominio}`,
+      `📍 Cidade: ${cidade}`,
+      `📱 WhatsApp: ${whatsapp}`,
+      `🔧 Interesse: ${interesse}`,
+      '',
+      'Gostaria de saber mais informações.',
+    ].join('\n');
+
+    const url = `https://wa.me/5513981301010?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+
+    /* Fecha o painel após envio */
+    fecharPainel();
+    miniForm.reset();
+  });
+</script>

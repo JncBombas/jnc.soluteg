@@ -1,0 +1,194 @@
+---
+/**
+ * Stats.astro
+ * Barra de estatísticas com counter animado via Intersection Observer + rAF.
+ */
+---
+
+<section class="stats" aria-label="Números da empresa">
+  <div class="stats-inner">
+
+    <div class="stat-item" data-reveal style="--reveal-delay: 0ms">
+      <span
+        class="stat-number"
+        data-target="7"
+        data-suffix="+"
+        aria-label="Mais de 7 anos de experiência"
+      >0+</span>
+      <span class="stat-label">Anos de experiência</span>
+    </div>
+
+    <div class="stat-divider" aria-hidden="true"></div>
+
+    <div class="stat-item" data-reveal style="--reveal-delay: 100ms">
+      <span
+        class="stat-number"
+        data-target="100"
+        data-suffix="+"
+        aria-label="Mais de 100 condomínios atendidos"
+      >0+</span>
+      <span class="stat-label">Condomínios atendidos</span>
+    </div>
+
+    <div class="stat-divider" aria-hidden="true"></div>
+
+    <div class="stat-item" data-reveal style="--reveal-delay: 200ms">
+      <span
+        class="stat-region"
+        aria-label="Região de atuação: Baixada Santista"
+      >Baixada Santista</span>
+      <span class="stat-label">Região de atuação</span>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .stats {
+    background-color: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding: 40px 1.5rem;
+  }
+
+  .stats-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    text-align: center;
+    padding: 0 2rem;
+  }
+
+  /* Número animado */
+  .stat-number {
+    display: block;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-gold);
+    font-variant-numeric: tabular-nums;
+    /* opacidade inicial; JS revela via counter */
+  }
+
+  /* Texto de região — fade-in sem counter */
+  .stat-region {
+    display: block;
+    font-size: clamp(20px, 2.2vw, 28px);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--color-gold);
+    opacity: 0;
+    transition: opacity 600ms ease;
+  }
+
+  .stat-region.is-visible {
+    opacity: 1;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Divisor vertical */
+  .stat-divider {
+    align-self: center;
+    flex-shrink: 0;
+    width: 1px;
+    height: 56px;
+    background-color: var(--color-border);
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 640px) {
+    .stats-inner {
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .stat-divider {
+      width: 60px;
+      height: 1px;
+    }
+
+    .stat-item {
+      padding: 0;
+    }
+
+    .stat-number {
+      font-size: 36px;
+    }
+  }
+</style>
+
+<script>
+  const section  = document.querySelector<HTMLElement>('.stats');
+  const counters = document.querySelectorAll<HTMLElement>('.stat-number');
+  const regionEl = document.querySelector<HTMLElement>('.stat-region');
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /** Anima o counter de 0 até `target` em `duration` ms com easeOutQuart. */
+  function animateCounter(
+    el: HTMLElement,
+    target: number,
+    suffix: string,
+    duration: number
+  ): void {
+    const startTime = performance.now();
+
+    function step(now: number): void {
+      const elapsed  = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // easeOutQuart: desacelera no final
+      const eased   = 1 - Math.pow(1 - progress, 4);
+      const current = Math.round(eased * target);
+      el.textContent = `${current}${suffix}`;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  let triggered = false;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (!entries[0].isIntersecting || triggered) return;
+      triggered = true;
+
+      counters.forEach((el) => {
+        const target = Number(el.dataset.target ?? '0');
+        const suffix = el.dataset.suffix ?? '';
+
+        if (reducedMotion) {
+          // Mostra valor final imediatamente
+          el.textContent = `${target}${suffix}`;
+        } else {
+          animateCounter(el, target, suffix, 1200);
+        }
+      });
+
+      // Região: apenas fade-in, sem counter
+      regionEl?.classList.add('is-visible');
+
+      observer.disconnect();
+    },
+    { threshold: 0.3 }
+  );
+
+  if (section) observer.observe(section);
+</script>
