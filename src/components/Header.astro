@@ -312,6 +312,19 @@
       display: flex;
     }
   }
+
+  /* Telas muito pequenas (< 380px): comprime nome da marca */
+  @media (max-width: 380px) {
+    .brand-name {
+      font-size: 0.75rem;
+    }
+    .brand-sistema {
+      display: none;
+    }
+    .header-inner {
+      padding: 0 1rem;
+    }
+  }
 </style>
 
 <script>

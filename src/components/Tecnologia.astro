@@ -871,17 +871,41 @@ const pilares: Pilar[] = [
   @media (max-width: 1024px) {
     .tec-body {
       flex-direction: column;
+      align-items: center;
+      gap: 2rem;
     }
 
-    /* Esconde mockup em tablet/mobile — pilares ficam como única coluna */
+    /* Mockup estático, centralizado, sem sticky */
     .tec-mockup-col {
-      display: none;
+      display: flex;
+      justify-content: center;
+      position: static;
+      flex: 0 0 auto;
+      width: 100%;
     }
 
-    /* Pilares sem o destaque de borda (sem mockup não faz sentido) */
+    .tec-phone {
+      width: 220px;
+    }
+
+    /* Área de telas ligeiramente menor no mobile */
+    .phone-screens-area {
+      height: 380px;
+    }
+
+    /* Pilares como cards com borda completa */
     .tec-pilar {
-      border-left-color: var(--color-border) !important;
-      background-color: transparent !important;
+      border: 1px solid var(--color-border);
+      border-left: 3px solid var(--color-gold);
+      border-radius: 12px;
+      background-color: rgba(201, 162, 99, 0.02);
+    }
+
+    /* Estado ativo continua destacado */
+    .tec-pilar.is-active {
+      border-left-color: var(--color-gold);
+      background-color: rgba(201, 162, 99, 0.05);
+      box-shadow: 0 0 20px rgba(201, 162, 99, 0.06);
     }
   }
 
@@ -891,14 +915,20 @@ const pilares: Pilar[] = [
     }
 
     .tec-pilar {
-      padding: 1.75rem 1rem;
+      padding: 1.5rem 1.25rem;
       flex-direction: column;
+      gap: 1rem;
     }
 
     .pilar-icon-wrap {
       width: 40px;
       height: 40px;
       padding-top: 9px;
+    }
+
+    /* Reduz margem do cabeçalho da seção */
+    .section-header {
+      margin-bottom: 2.5rem;
     }
   }
 </style>
@@ -949,13 +979,9 @@ const pilares: Pilar[] = [
   // Pilar 0 começa ativo por padrão
   setActive(0);
 
-  // Só ativa troca se o mockup estiver visível (desktop ≥1024px)
+  // Troca de tela por scroll só em desktop (mockup sticky) — não no mobile/tablet
   function initPilarObserver(): void {
-    const mockupCol = document.querySelector<HTMLElement>('.tec-mockup-col');
-    if (!mockupCol) return;
-    const isVisible = getComputedStyle(mockupCol).display !== 'none';
-    if (!isVisible) return;
-
+    if (window.innerWidth <= 1024) return;
     pilares.forEach((p) => pilarObserver.observe(p));
   }
 

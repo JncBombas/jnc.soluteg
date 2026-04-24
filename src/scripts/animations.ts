@@ -73,9 +73,13 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matc
         behavior: reducedMotion ? 'instant' : 'smooth',
       });
 
-      // Foca no alvo para acessibilidade
-      target.setAttribute('tabindex', '-1');
-      target.focus({ preventScroll: true });
+      // Foca no alvo para acessibilidade — com delay para não conflitar
+      // com o scroll no iOS Safari (que ignora preventScroll em versões antigas)
+      const delay = reducedMotion ? 0 : 500;
+      setTimeout(() => {
+        target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
+      }, delay);
     });
   });
 })();

@@ -88,7 +88,7 @@
           <option value="Manutenção de geradores">Manutenção de geradores</option>
           <option value="Monitoramento IoT">Monitoramento IoT</option>
           <option value="Contrato de manutenção preventiva">Manutenção preventiva</option>
-          <option value="Tudo acima / Quero saber mais">Quero saber mais</option>
+          <option value="Quero saber mais">Quero saber mais</option>
         </select>
       </div>
 
@@ -514,7 +514,7 @@
     ].join('\n');
 
     const url = `https://wa.me/5513981301010?text=${encodeURIComponent(mensagem)}`;
-    window.open(url, '_blank', 'noopener,noreferrer');
+    window.location.href = url;
 
     /* Fecha o painel após envio */
     fecharPainel();
