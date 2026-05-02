@@ -1,45 +1,83 @@
 ---
 /**
  * Hero.astro
- * Seção hero fullscreen com mockup de celular e animações de entrada.
+ * Seção hero fullscreen com visual de IA, partículas animadas,
+ * mockup de celular com glow e trust pills para conversão.
  */
 ---
 
 <section class="hero" aria-label="Introdução">
 
+  <!-- Background elements -->
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-grid"></div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-glow"></div>
+  </div>
+
   <!-- Coluna esquerda: textos e CTAs -->
   <div class="hero-content">
 
-    <!-- Badge pill -->
-    <div class="hero-badge" style="animation: fadeSlideUp 400ms ease-out 0ms both;">
-      <span>Especialistas em Condomínios</span>
+    <!-- AI Badge -->
+    <div class="hero-badge" style="animation: fadeSlideUp 500ms ease-out 0ms both;">
+      <span class="hero-badge-dot"></span>
+      <span>Inteligência Artificial Integrada</span>
     </div>
 
-    <!-- H1 -->
-    <h1 class="hero-title" style="animation: fadeSlideUp 400ms ease-out 150ms both;">
-      Seu condomínio protegido,<br>
-      <span class="hero-title-gold">monitorado</span>
+    <!-- H1 com gradient -->
+    <h1 class="hero-title" style="animation: fadeSlideUp 500ms ease-out 150ms both;">
+      Seu condomínio gerenciado por
+      <span class="hero-title-gradient">Inteligência Artificial</span>
     </h1>
 
     <!-- Parágrafo descritivo -->
-    <p class="hero-description" style="animation: fadeSlideUp 400ms ease-out 300ms both;">
-      Manutenção especializada em bombas, painéis elétricos e geradores —
-      com tecnologia de monitoramento em tempo real para síndicos.
+    <p class="hero-description" style="animation: fadeSlideUp 500ms ease-out 300ms both;">
+      Monitoramento autônomo com IA, manutenção preditiva e alertas
+      automáticos — 24/7, sem intervenção humana. O futuro da gestão
+      condominial já chegou.
     </p>
 
+    <!-- Trust pills -->
+    <div class="hero-trust" style="animation: fadeSlideUp 500ms ease-out 400ms both;">
+      <div class="trust-pill">
+        <span class="trust-number">100+</span>
+        <span class="trust-label">Condomínios</span>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-pill">
+        <span class="trust-number">24/7</span>
+        <span class="trust-label">Monitoramento IA</span>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-pill">
+        <span class="trust-number">&lt;3s</span>
+        <span class="trust-label">Tempo de alerta</span>
+      </div>
+    </div>
+
     <!-- CTAs -->
-    <div class="hero-ctas" style="animation: fadeSlideUp 400ms ease-out 450ms both;">
+    <div class="hero-ctas" style="animation: fadeSlideUp 500ms ease-out 500ms both;">
       <a href="#contato" class="cta-primary">
-        Solicitar Orçamento
+        <span class="cta-primary-glow"></span>
+        Agendar Demonstração Grátis
+        <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 10h10M11 6l4 4-4 4"/>
+        </svg>
       </a>
       <a href="#tecnologia" class="cta-secondary">
-        Ver o Sistema
+        <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polygon points="8 5 16 10 8 15"/>
+        </svg>
+        Ver o Sistema IA
       </a>
     </div>
   </div>
 
-  <!-- Coluna direita: mockup de celular -->
-  <div class="hero-mockup-wrapper" style="animation: fadeSlideLeft 400ms ease-out 300ms both;" aria-hidden="true">
+  <!-- Coluna direita: mockup de celular com glow -->
+  <div class="hero-mockup-wrapper" style="animation: fadeSlideLeft 600ms ease-out 400ms both;" aria-hidden="true">
+    <div class="phone-glow-ring"></div>
     <div class="phone-mockup">
       <!-- Câmera frontal simulada -->
       <div class="phone-camera"></div>
@@ -52,8 +90,18 @@
           <span class="app-header-title">Caixas d'água</span>
           <span class="app-live-dot" aria-hidden="true">
             <span class="live-indicator"></span>
-            Ao vivo
+            IA ativa
           </span>
+        </div>
+
+        <!-- AI Status bar -->
+        <div class="ai-status-bar">
+          <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <circle cx="8" cy="8" r="6"/>
+            <path d="M8 4v4l2 2"/>
+          </svg>
+          <span>Última análise: agora</span>
+          <span class="ai-status-ok">● Normal</span>
         </div>
 
         <!-- Card principal: nível -->
@@ -62,7 +110,6 @@
             <span class="card-label">Nível atual</span>
             <span class="card-value">73%</span>
           </div>
-
           <!-- Barra de nível animada -->
           <div class="level-track" role="progressbar" aria-valuenow="73" aria-valuemin="0" aria-valuemax="100" aria-label="Nível da caixa d'água: 73%">
             <div class="level-fill"></div>
@@ -87,7 +134,7 @@
 
         <!-- Mini gráfico de histórico (SVG) -->
         <div class="app-chart">
-          <p class="chart-label">Histórico — últimas 24h</p>
+          <p class="chart-label">Predição IA — próximas 24h</p>
           <svg
             viewBox="0 0 220 60"
             fill="none"
@@ -95,32 +142,58 @@
             class="chart-svg"
             aria-hidden="true"
           >
-            <!-- Área preenchida sob a linha -->
             <defs>
               <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#C9A263" stop-opacity="0.25"/>
-                <stop offset="100%" stop-color="#C9A263" stop-opacity="0"/>
+                <stop offset="0%" stop-color="#00c8ff" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="#00c8ff" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="predGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
               </linearGradient>
             </defs>
+            <!-- Área real -->
             <path
-              d="M0 45 L20 38 L45 32 L70 28 L90 35 L110 22 L135 18 L160 20 L185 17 L220 15 L220 60 L0 60 Z"
+              d="M0 45 L20 38 L45 32 L70 28 L90 35 L110 22 L110 60 L0 60 Z"
               fill="url(#chartGrad)"
             />
-            <!-- Linha principal -->
+            <!-- Linha real -->
             <path
-              d="M0 45 L20 38 L45 32 L70 28 L90 35 L110 22 L135 18 L160 20 L185 17 L220 15"
-              stroke="#C9A263"
+              d="M0 45 L20 38 L45 32 L70 28 L90 35 L110 22"
+              stroke="#00c8ff"
               stroke-width="1.5"
               stroke-linecap="round"
               stroke-linejoin="round"
             />
-            <!-- Ponto atual -->
-            <circle cx="220" cy="15" r="3" fill="#C9A263"/>
+            <!-- Área predição -->
+            <path
+              d="M110 22 L135 18 L160 20 L185 17 L220 15 L220 60 L110 60 Z"
+              fill="url(#predGrad)"
+            />
+            <!-- Linha predição (tracejada) -->
+            <path
+              d="M110 22 L135 18 L160 20 L185 17 L220 15"
+              stroke="#7c3aed"
+              stroke-width="1.5"
+              stroke-dasharray="4 3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <!-- Ponto de transição -->
+            <circle cx="110" cy="22" r="3" fill="#00c8ff"/>
+            <circle cx="110" cy="22" r="6" fill="none" stroke="#00c8ff" stroke-width="1" opacity="0.3"/>
+            <!-- Ponto final predição -->
+            <circle cx="220" cy="15" r="3" fill="#7c3aed"/>
           </svg>
         </div>
 
       </div><!-- /phone-screen -->
     </div><!-- /phone-mockup -->
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator" style="animation: fadeIn 800ms ease-out 1200ms both;" aria-hidden="true">
+    <div class="scroll-line"></div>
   </div>
 
 </section>
@@ -140,30 +213,68 @@
     overflow: hidden;
   }
 
-  /* Grid pattern de fundo — limitado à seção hero */
-  .hero::before {
-    content: '';
+  /* ── Background elements ── */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  /* Grid pattern */
+  .hero-grid {
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(201, 162, 99, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(201, 162, 99, 0.04) 1px, transparent 1px);
+      linear-gradient(rgba(0, 200, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 200, 255, 0.03) 1px, transparent 1px);
     background-size: 60px 60px;
-    pointer-events: none;
-    z-index: 0;
+    mask-image: radial-gradient(ellipse at 30% 50%, black 30%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 30% 50%, black 30%, transparent 70%);
   }
 
-  /* Gradiente radial decorativo */
-  .hero::after {
-    content: '';
+  /* Floating orbs */
+  .hero-orb {
     position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .hero-orb-1 {
     top: 10%;
-    left: -10%;
+    left: -5%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(0, 200, 255, 0.12) 0%, transparent 70%);
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .hero-orb-2 {
+    bottom: 20%;
+    right: 10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%);
+    animation: float 10s ease-in-out infinite 2s;
+  }
+
+  .hero-orb-3 {
+    top: 50%;
+    left: 40%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.06) 0%, transparent 70%);
+    animation: float 12s ease-in-out infinite 4s;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: 0;
+    right: 20%;
     width: 60%;
-    height: 80%;
-    background: radial-gradient(ellipse at center, rgba(201, 162, 99, 0.08) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
+    height: 100%;
+    background: radial-gradient(ellipse at 60% 40%, rgba(0, 200, 255, 0.04) 0%, transparent 50%);
   }
 
   /* ── Coluna esquerda ── */
@@ -173,35 +284,50 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    flex: 0 0 60%;
-    max-width: 60%;
+    flex: 0 0 55%;
+    max-width: 55%;
   }
 
-  /* Badge */
+  /* AI Badge */
   .hero-badge {
     display: inline-flex;
+    align-items: center;
+    gap: 8px;
     width: fit-content;
-    padding: 0.375rem 0.875rem;
-    border: 1px solid rgba(201, 162, 99, 0.3);
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(0, 200, 255, 0.2);
     border-radius: 999px;
     font-size: 12px;
     font-weight: 600;
-    color: var(--color-gold);
-    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+    background: rgba(0, 200, 255, 0.05);
+  }
+
+  .hero-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    animation: pulse-dot 2s ease-in-out infinite;
+    flex-shrink: 0;
   }
 
   /* H1 */
   .hero-title {
-    font-size: clamp(2.25rem, 4vw, 3.5rem);
-    font-weight: 700;
-    line-height: 1.1;
+    font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+    font-weight: 800;
+    line-height: 1.08;
     color: var(--color-text);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
   }
 
-  .hero-title-gold {
-    color: var(--color-gold);
+  .hero-title-gradient {
+    background: var(--gradient-ai);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   /* Parágrafo */
@@ -210,6 +336,42 @@
     color: var(--color-muted);
     max-width: 480px;
     line-height: 1.7;
+  }
+
+  /* Trust pills */
+  .hero-trust {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  .trust-pill {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .trust-number {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--color-text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .trust-label {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .trust-divider {
+    width: 1px;
+    height: 36px;
+    background: var(--color-border);
+    flex-shrink: 0;
   }
 
   /* CTAs */
@@ -221,47 +383,71 @@
   }
 
   .cta-primary {
+    position: relative;
     display: inline-flex;
     align-items: center;
-    padding: 0.75rem 1.75rem;
-    border-radius: 8px;
+    gap: 8px;
+    padding: 0.875rem 1.75rem;
+    border-radius: 10px;
     font-size: 0.9375rem;
     font-weight: 600;
-    color: #0F1117;
-    background-color: var(--color-gold);
+    color: #fff;
+    background: linear-gradient(135deg, #00a8e8 0%, #0077b6 100%);
     text-decoration: none;
-    box-shadow: 0 0 24px rgba(201, 162, 99, 0.3);
+    overflow: hidden;
+    box-shadow:
+      0 0 24px rgba(0, 200, 255, 0.3),
+      0 4px 12px rgba(0, 0, 0, 0.3);
     transition:
-      background-color 200ms ease,
-      box-shadow 200ms ease;
+      box-shadow 300ms ease,
+      transform 150ms ease;
   }
 
   .cta-primary:hover,
   .cta-primary:focus-visible {
-    background-color: var(--color-gold-light);
-    box-shadow: 0 0 32px rgba(232, 192, 112, 0.4);
+    box-shadow:
+      0 0 40px rgba(0, 200, 255, 0.5),
+      0 8px 24px rgba(0, 0, 0, 0.3);
+    transform: translateY(-1px);
     outline: none;
+  }
+
+  .cta-primary:active {
+    transform: translateY(0);
+  }
+
+  .cta-primary-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    animation: shimmer 3s ease-in-out infinite;
   }
 
   .cta-secondary {
     display: inline-flex;
     align-items: center;
-    padding: 0.75rem 1.75rem;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
+    gap: 8px;
+    padding: 0.875rem 1.75rem;
+    border: 1px solid var(--color-border-light);
+    border-radius: 10px;
     font-size: 0.9375rem;
     font-weight: 600;
-    color: var(--color-text);
+    color: var(--color-muted);
     text-decoration: none;
     transition:
       border-color 200ms ease,
-      color 200ms ease;
+      color 200ms ease,
+      background-color 200ms ease;
   }
 
   .cta-secondary:hover,
   .cta-secondary:focus-visible {
-    border-color: var(--color-gold);
-    color: var(--color-gold);
+    border-color: rgba(0, 200, 255, 0.3);
+    color: var(--color-primary);
+    background-color: rgba(0, 200, 255, 0.04);
     outline: none;
   }
 
@@ -275,17 +461,27 @@
     align-items: center;
   }
 
+  /* Glow ring behind phone */
+  .phone-glow-ring {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 200, 255, 0.08) 0%, transparent 70%);
+    animation: glow-pulse 4s ease-in-out infinite;
+  }
+
   /* Telefone */
   .phone-mockup {
     position: relative;
     width: 260px;
-    border: 2px solid var(--color-border);
+    border: 1.5px solid rgba(0, 200, 255, 0.15);
     border-radius: 44px;
     background: var(--color-surface);
     box-shadow:
-      inset 0 0 0 1px rgba(255,255,255,0.04),
-      0 32px 80px rgba(0, 0, 0, 0.5),
-      0 0 40px rgba(201, 162, 99, 0.05);
+      inset 0 0 0 1px rgba(255,255,255,0.03),
+      0 32px 80px rgba(0, 0, 0, 0.6),
+      0 0 60px rgba(0, 200, 255, 0.08);
     overflow: hidden;
     padding-bottom: 1.5rem;
   }
@@ -295,7 +491,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.08);
+    background: rgba(0, 200, 255, 0.15);
     margin: 14px auto 10px;
   }
 
@@ -304,7 +500,7 @@
     margin: 0 10px;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.625rem;
   }
 
   /* Header do app */
@@ -313,8 +509,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.625rem 0.875rem;
-    background: rgba(255,255,255,0.03);
+    background: rgba(0, 200, 255, 0.04);
     border-radius: 12px;
+    border: 1px solid rgba(0, 200, 255, 0.06);
   }
 
   .app-header-title {
@@ -329,27 +526,45 @@
     gap: 5px;
     font-size: 0.6875rem;
     font-weight: 500;
-    color: #4ade80;
+    color: var(--color-primary);
   }
 
-  /* Indicador pulsante "Ao vivo" */
   .live-indicator {
     display: inline-block;
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background-color: #4ade80;
-    animation: pulse-green 2s ease-in-out infinite;
+    background-color: var(--color-primary);
+    animation: pulse-dot 2s ease-in-out infinite;
   }
 
-  @keyframes pulse-green {
-    0%, 100% { opacity: 1;   transform: scale(1);    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
-    50%       { opacity: 0.8; transform: scale(1.15); box-shadow: 0 0 0 4px rgba(74, 222, 128, 0); }
+  /* AI status bar */
+  .ai-status-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.375rem 0.75rem;
+    background: rgba(0, 200, 255, 0.04);
+    border-radius: 8px;
+    font-size: 0.5625rem;
+    color: var(--color-muted);
+    border: 1px solid rgba(0, 200, 255, 0.06);
+  }
+
+  .ai-status-bar svg {
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  .ai-status-ok {
+    margin-left: auto;
+    color: #4ade80;
+    font-weight: 600;
   }
 
   /* Card de nível */
   .app-card {
-    background: rgba(255,255,255,0.03);
+    background: rgba(255,255,255,0.02);
     border: 1px solid var(--color-border);
     border-radius: 12px;
     padding: 0.75rem 0.875rem;
@@ -375,22 +590,22 @@
   .card-value {
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--color-gold);
+    color: var(--color-primary);
   }
 
   /* Barra de nível */
   .level-track {
     height: 8px;
     border-radius: 999px;
-    background: rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.04);
     overflow: hidden;
   }
 
   .level-fill {
     height: 100%;
     border-radius: 999px;
-    background: linear-gradient(90deg, var(--color-gold), var(--color-gold-light));
-    animation: fillBar 1.2s ease-out 600ms both;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    animation: fillBar 1.2s ease-out 800ms both;
   }
 
   /* Badges de limites */
@@ -419,20 +634,20 @@
   }
 
   .badge-red {
-    background: rgba(239, 68, 68, 0.12);
+    background: rgba(239, 68, 68, 0.1);
     color: #f87171;
-    border: 1px solid rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.15);
   }
   .badge-red .badge-dot { background: #ef4444; }
 
   .badge-yellow {
-    background: rgba(234, 179, 8, 0.12);
+    background: rgba(234, 179, 8, 0.1);
     color: #facc15;
-    border: 1px solid rgba(234, 179, 8, 0.2);
+    border: 1px solid rgba(234, 179, 8, 0.15);
   }
   .badge-yellow .badge-dot { background: #eab308; }
 
-  /* Gráfico de histórico */
+  /* Gráfico de histórico com predição IA */
   .app-chart {
     display: flex;
     flex-direction: column;
@@ -445,8 +660,8 @@
 
   .chart-label {
     font-size: 0.625rem;
-    font-weight: 500;
-    color: var(--color-muted);
+    font-weight: 600;
+    color: var(--color-accent-light);
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
@@ -457,6 +672,22 @@
     display: block;
   }
 
+  /* Scroll indicator */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--color-primary), transparent);
+    animation: float 2s ease-in-out infinite;
+  }
+
   /* ── Responsividade ── */
   @media (max-width: 768px) {
     .hero {
@@ -464,7 +695,7 @@
       align-items: flex-start;
       justify-content: flex-start;
       padding: 3.5rem 1.25rem 3rem;
-      gap: 2rem;
+      gap: 2.5rem;
       min-height: unset;
     }
 
@@ -473,7 +704,14 @@
       max-width: 100%;
     }
 
-    /* Mockup centralizado abaixo do texto no mobile */
+    .hero-trust {
+      gap: 0.75rem;
+    }
+
+    .trust-number {
+      font-size: 1.125rem;
+    }
+
     .hero-mockup-wrapper {
       flex: 0 0 auto;
       width: 100%;
@@ -483,8 +721,15 @@
     }
 
     .phone-mockup {
-      width: 210px;
+      width: 220px;
     }
-  }
 
+    .scroll-indicator {
+      display: none;
+    }
+
+    .hero-orb-1 { width: 300px; height: 300px; }
+    .hero-orb-2 { width: 250px; height: 250px; }
+    .hero-orb-3 { display: none; }
+  }
 </style>

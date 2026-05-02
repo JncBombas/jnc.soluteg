@@ -1,283 +1,77 @@
 ---
 /**
  * Footer.astro
- * Rodapé 3 colunas — JNC como marca principal, Soluteg no crédito do bottom bar.
+ * Rodapé limpo com 3 colunas e visual AI.
  */
 ---
 
 <footer class="site-footer" role="contentinfo">
   <div class="footer-inner" data-reveal style="--reveal-delay: 0ms">
-
-    <!-- Coluna 1: marca JNC -->
     <div class="footer-col footer-brand">
-      <a href="/" class="footer-logo-link" aria-label="JNC Comércio e Serviços — início">
-        <img
-          src="/logo-jnc.png"
-          alt="JNC Comércio e Serviços"
-          class="footer-logo-jnc"
-          width="200"
-          height="200"
-          loading="lazy"
-          decoding="async"
-        />
+      <a href="/" class="footer-logo-link" aria-label="JNC — início">
+        <img src="/logo-jnc.png" alt="JNC" class="footer-logo-jnc" width="80" height="80" loading="lazy" decoding="async" />
       </a>
       <p class="footer-desc">
-        Manutenção especializada e tecnologia de monitoramento
-        para condomínios na Baixada Santista.
+        Manutenção especializada e Inteligência Artificial para condomínios na Baixada Santista.
       </p>
     </div>
 
-    <!-- Coluna 2: navegação -->
     <nav class="footer-col footer-nav" aria-label="Links do rodapé">
       <p class="footer-col-title">Navegação</p>
       <ul role="list">
-        <li><a href="#servicos"   class="footer-link">Serviços</a></li>
-        <li><a href="#tecnologia" class="footer-link">Tecnologia</a></li>
-        <li><a href="#sobre"      class="footer-link">Sobre</a></li>
-        <li><a href="#contato"    class="footer-link">Contato</a></li>
+        <li><a href="#servicos" class="footer-link">Serviços</a></li>
+        <li><a href="#tecnologia" class="footer-link">Tecnologia IA</a></li>
+        <li><a href="#sobre" class="footer-link">Sobre</a></li>
+        <li><a href="#contato" class="footer-link">Contato</a></li>
       </ul>
     </nav>
 
-    <!-- Coluna 3: contato -->
     <div class="footer-col footer-contact">
       <p class="footer-col-title">Contato</p>
       <ul role="list" class="footer-contact-list">
-        <li>
-          <a href="tel:+5513981301010" class="footer-link">
-            (13) 98130-1010
-          </a>
-        </li>
-        <li>
-          <a href="mailto:contato@soluteg.com.br" class="footer-link">
-            contato@soluteg.com.br
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://app.soluteg.com.br"
-            class="footer-link footer-link-portal"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Acessar portal &rarr;
-          </a>
-        </li>
+        <li><a href="tel:+5513981301010" class="footer-link">(13) 98130-1010</a></li>
+        <li><a href="mailto:contato@soluteg.com.br" class="footer-link">contato@soluteg.com.br</a></li>
+        <li><a href="https://app.soluteg.com.br" class="footer-link footer-link-portal" target="_blank" rel="noopener noreferrer">Acessar portal IA &rarr;</a></li>
       </ul>
     </div>
-
   </div>
 
-  <!-- Bottom bar -->
   <div class="footer-bottom">
-    <p class="footer-copy">
-      &copy; 2025 JNC Comércio e Serviços Técnicos. Todos os direitos reservados.
-    </p>
-
-    <!-- Soluteg em segundo plano — logo como imagem -->
+    <p class="footer-copy">&copy; 2025 JNC Comércio e Serviços Técnicos.</p>
     <p class="footer-credit">
-      Sistema de gestão:
-      <a
-        href="https://soluteg.com.br"
-        class="footer-credit-link"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Soluteg"
-      >
-        <img
-          src="/1aa.png"
-          alt="Soluteg"
-          class="footer-credit-logo"
-          width="64"
-          height="20"
-          loading="lazy"
-          decoding="async"
-        />
+      Sistema: <a href="https://soluteg.com.br" class="footer-credit-link" target="_blank" rel="noopener noreferrer">
+        <img src="/1aa.png" alt="Soluteg" class="footer-credit-logo" width="64" height="20" loading="lazy" decoding="async" />
       </a>
     </p>
   </div>
 </footer>
 
 <style>
-  .site-footer {
-    background-color: var(--color-bg);
-    border-top: 1px solid var(--color-border);
-    padding: 48px 1.5rem 0;
-  }
+  .site-footer { background-color:var(--color-bg); border-top:1px solid var(--color-border); padding:48px 1.5rem 0; position:relative; }
+  .site-footer::before { content:''; position:absolute; top:-1px; left:25%; right:25%; height:1px; background:linear-gradient(90deg,transparent,rgba(0,200,255,0.15),transparent); }
 
-  /* ── Grade de colunas ── */
-  .footer-inner {
-    display: grid;
-    grid-template-columns: 1.8fr 1fr 1fr;
-    gap: 3rem;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding-bottom: 40px;
-    align-items: center;
-  }
+  .footer-inner { display:grid; grid-template-columns:1.8fr 1fr 1fr; gap:3rem; max-width:1100px; margin:0 auto; padding-bottom:40px; align-items:start; }
+  .footer-brand { display:flex; flex-direction:column; gap:1rem; }
+  .footer-logo-link { display:inline-flex; text-decoration:none; width:fit-content; transition:opacity 200ms ease; }
+  .footer-logo-link:hover { opacity:0.8; }
+  .footer-logo-jnc { height:80px; width:auto; display:block; border-radius:10px; }
+  .footer-desc { font-size:13px; color:var(--color-muted); line-height:1.65; max-width:260px; }
 
-  /* ── Coluna 1: brand ── */
-  .footer-brand {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
+  .footer-col { display:flex; flex-direction:column; gap:1rem; }
+  .footer-col-title { font-size:12px; font-weight:600; color:var(--color-text); text-transform:uppercase; letter-spacing:0.1em; }
+  .footer-nav ul, .footer-contact-list { display:flex; flex-direction:column; gap:0.625rem; list-style:none; padding:0; margin:0; }
+  .footer-link { font-size:13px; color:var(--color-muted); text-decoration:none; transition:color 200ms ease; display:inline-block; width:fit-content; }
+  .footer-link:hover { color:var(--color-primary); }
+  .footer-link-portal { color:var(--color-primary); font-weight:500; }
 
-  .footer-logo-link {
-    display: inline-flex;
-    text-decoration: none;
-    width: fit-content;
-    transition: opacity 200ms ease;
-  }
+  .footer-bottom { display:flex; align-items:center; justify-content:space-between; gap:1rem; max-width:1100px; margin:0 auto; border-top:1px solid var(--color-border); padding:20px 0 28px; }
+  .footer-copy { font-size:12px; color:var(--color-muted); opacity:0.6; }
+  .footer-credit { display:flex; align-items:center; gap:0.4rem; font-size:12px; color:var(--color-muted); opacity:0.6; }
+  .footer-credit-link { display:inline-flex; align-items:center; text-decoration:none; transition:opacity 200ms ease; }
+  .footer-credit-link:hover { opacity:0.8; }
+  .footer-credit-logo { height:18px; width:auto; display:block; opacity:0.55; transition:opacity 200ms ease; }
+  .footer-credit-link:hover .footer-credit-logo { opacity:0.85; }
 
-  .footer-logo-link:hover {
-    opacity: 0.8;
-  }
-
-  .footer-logo-jnc {
-    height: 200px;
-    width: auto;
-    display: block;
-    border-radius: 10px;
-  }
-
-  .footer-desc {
-    font-size: 13px;
-    color: var(--color-muted);
-    line-height: 1.65;
-    max-width: 260px;
-  }
-
-  /* ── Colunas nav e contato ── */
-  .footer-col {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .footer-col-title {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--color-text);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  .footer-nav ul,
-  .footer-contact-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .footer-link {
-    font-size: 13px;
-    color: var(--color-muted);
-    text-decoration: none;
-    transition: color 200ms ease;
-    display: inline-block;
-    width: fit-content;
-  }
-
-  .footer-link:hover,
-  .footer-link:focus-visible {
-    color: var(--color-gold);
-    outline: none;
-  }
-
-  .footer-link-portal {
-    color: var(--color-gold);
-    font-weight: 500;
-  }
-
-  .footer-link-portal:hover {
-    color: var(--color-gold-light);
-  }
-
-  /* ── Bottom bar ── */
-  .footer-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    max-width: 1100px;
-    margin: 0 auto;
-    border-top: 1px solid var(--color-border);
-    padding: 20px 0 28px;
-  }
-
-  .footer-copy {
-    font-size: 12px;
-    color: var(--color-muted);
-    opacity: 0.6;
-  }
-
-  /* Crédito com wordmark Soluteg */
-  .footer-credit {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 12px;
-    color: var(--color-muted);
-    opacity: 0.6;
-    white-space: nowrap;
-  }
-
-  .footer-credit-link {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    transition: opacity 200ms ease;
-  }
-
-  .footer-credit-link:hover {
-    opacity: 0.8;
-  }
-
-  .footer-credit-logo {
-    height: 18px;
-    width: auto;
-    display: block;
-    opacity: 0.55;
-    transition: opacity 200ms ease;
-  }
-
-  .footer-credit-link:hover .footer-credit-logo {
-    opacity: 0.85;
-  }
-
-  /* ── Responsividade ── */
-  @media (max-width: 900px) {
-    .footer-inner {
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-    }
-
-    .footer-brand {
-      grid-column: 1 / -1;
-    }
-
-    .footer-desc {
-      max-width: 100%;
-    }
-  }
-
-  @media (max-width: 560px) {
-    .footer-inner {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    .footer-logo-jnc {
-      height: 80px;
-    }
-
-    .footer-bottom {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-  }
+  @media (max-width:900px) { .footer-inner { grid-template-columns:1fr 1fr; gap:2.5rem; } .footer-brand { grid-column:1/-1; } }
+  @media (max-width:560px) { .footer-inner { grid-template-columns:1fr; gap:2rem; } .footer-bottom { flex-direction:column; align-items:flex-start; gap:0.5rem; } }
 </style>

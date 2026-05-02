@@ -1,7 +1,7 @@
 ---
 /**
  * Stats.astro
- * Barra de estatísticas com counter animado via Intersection Observer + rAF.
+ * Barra de estatísticas com visual de IA — ícones, glow e counter animado.
  */
 ---
 
@@ -9,6 +9,12 @@
   <div class="stats-inner">
 
     <div class="stat-item" data-reveal style="--reveal-delay: 0ms">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
       <span
         class="stat-number"
         data-target="7"
@@ -21,6 +27,12 @@
     <div class="stat-divider" aria-hidden="true"></div>
 
     <div class="stat-item" data-reveal style="--reveal-delay: 100ms">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </div>
       <span
         class="stat-number"
         data-target="100"
@@ -33,6 +45,31 @@
     <div class="stat-divider" aria-hidden="true"></div>
 
     <div class="stat-item" data-reveal style="--reveal-delay: 200ms">
+      <div class="stat-icon stat-icon-ai">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10A10 10 0 0 1 2 12"/>
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M2 12h4M18 12h4M12 2v4M12 18v4"/>
+        </svg>
+      </div>
+      <span
+        class="stat-number"
+        data-target="24"
+        data-suffix="/7"
+        aria-label="Monitoramento 24/7"
+      >0/7</span>
+      <span class="stat-label">Monitoramento IA</span>
+    </div>
+
+    <div class="stat-divider" aria-hidden="true"></div>
+
+    <div class="stat-item" data-reveal style="--reveal-delay: 300ms">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </div>
       <span
         class="stat-region"
         aria-label="Região de atuação: Baixada Santista"
@@ -45,17 +82,29 @@
 
 <style>
   .stats {
-    background-color: var(--color-surface);
+    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
-    padding: 40px 1.5rem;
+    padding: 48px 1.5rem;
+    position: relative;
+  }
+
+  /* Subtle glow line on top */
+  .stats::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 200, 255, 0.3), transparent);
   }
 
   .stats-inner {
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
   }
 
@@ -63,30 +112,44 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     flex: 1;
     text-align: center;
     padding: 0 2rem;
   }
 
-  /* Número animado */
-  .stat-number {
-    display: block;
-    font-size: 42px;
-    font-weight: 700;
-    line-height: 1;
-    color: var(--color-gold);
-    font-variant-numeric: tabular-nums;
-    /* opacidade inicial; JS revela via counter */
+  .stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(0, 200, 255, 0.06);
+    border: 1px solid rgba(0, 200, 255, 0.1);
+    color: var(--color-primary);
+    margin-bottom: 4px;
   }
 
-  /* Texto de região — fade-in sem counter */
+  .stat-icon-ai {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-text);
+    font-variant-numeric: tabular-nums;
+  }
+
   .stat-region {
     display: block;
-    font-size: clamp(20px, 2.2vw, 28px);
+    font-size: clamp(18px, 2.2vw, 26px);
     font-weight: 700;
     line-height: 1.1;
-    color: var(--color-gold);
+    color: var(--color-text);
     opacity: 0;
     transition: opacity 600ms ease;
   }
@@ -96,41 +159,35 @@
   }
 
   .stat-label {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
     color: var(--color-muted);
     text-transform: uppercase;
     letter-spacing: 0.1em;
   }
 
-  /* Divisor vertical */
   .stat-divider {
     align-self: center;
     flex-shrink: 0;
     width: 1px;
-    height: 56px;
-    background-color: var(--color-border);
+    height: 48px;
+    background: linear-gradient(180deg, transparent, var(--color-border-light), transparent);
   }
 
-  /* ── Mobile ── */
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     .stats-inner {
       flex-direction: column;
-      gap: 2rem;
+      gap: 1.5rem;
     }
 
     .stat-divider {
-      width: 60px;
+      width: 48px;
       height: 1px;
+      background: linear-gradient(90deg, transparent, var(--color-border-light), transparent);
     }
 
-    .stat-item {
-      padding: 0;
-    }
-
-    .stat-number {
-      font-size: 36px;
-    }
+    .stat-item { padding: 0; }
+    .stat-number { font-size: 32px; }
   }
 </style>
 
@@ -153,7 +210,6 @@
     function step(now: number): void {
       const elapsed  = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // easeOutQuart: desacelera no final
       const eased   = 1 - Math.pow(1 - progress, 4);
       const current = Math.round(eased * target);
       el.textContent = `${current}${suffix}`;
@@ -175,16 +231,13 @@
         const suffix = el.dataset.suffix ?? '';
 
         if (reducedMotion) {
-          // Mostra valor final imediatamente
           el.textContent = `${target}${suffix}`;
         } else {
-          animateCounter(el, target, suffix, 1200);
+          animateCounter(el, target, suffix, 900);
         }
       });
 
-      // Região: apenas fade-in, sem counter
       regionEl?.classList.add('is-visible');
-
       observer.disconnect();
     },
     { threshold: 0.3 }

@@ -1,48 +1,55 @@
 ---
 /**
  * Servicos.astro
- * Grade de serviços com ícones SVG inline e animação escalonada
- * ativada por Intersection Observer.
+ * Grade de serviços com glass cards, glow borders, ícones SVG
+ * e CTA intermediário para conversão.
  */
 
-/** SVGs inline por chave — mantidos aqui para evitar arquivos extras */
 const icons: Record<string, string> = {
   lightning: `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
-
   gear: `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
-
   panel: `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>`,
-
   generator: `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="2" x2="9" y2="4"/><line x1="15" y1="2" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="22"/><line x1="15" y1="20" x2="15" y2="22"/><line x1="2" y1="9" x2="4" y2="9"/><line x1="2" y1="15" x2="4" y2="15"/><line x1="20" y1="9" x2="22" y2="9"/><line x1="20" y1="15" x2="22" y2="15"/></svg>`,
-
-  wrench: `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+  brain: `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a4 4 0 0 1 4 4c0 .73-.2 1.41-.54 2H17a3 3 0 0 1 3 3c0 .87-.37 1.65-.97 2.2A3 3 0 0 1 17 18h-1.54A4 4 0 0 1 12 22a4 4 0 0 1-3.46-4H7a3 3 0 0 1-1.03-5.8A3 3 0 0 1 7 8h1.54A4 4 0 0 1 12 2z"/><circle cx="12" cy="12" r="2"/><path d="M12 8v2M12 14v2M8.5 10.5l1.5 1M14 13l1.5 1M8.5 13.5l1.5-1M14 11l1.5-1"/></svg>`,
 };
 
-const servicos = [
+interface Servico {
+  icon: string;
+  titulo: string;
+  desc: string;
+  destaque?: boolean;
+  tag?: string;
+}
+
+const servicos: Servico[] = [
   {
     icon: 'lightning',
     titulo: 'Instalações Elétricas',
-    desc: 'Projetos e instalações em conformidade com as normas ABNT. Quadros, tomadas, iluminação e infraestrutura completa.',
+    desc: 'Projetos e instalações em conformidade com normas ABNT. Quadros, tomadas, iluminação e infraestrutura completa.',
   },
   {
     icon: 'gear',
     titulo: 'Manutenção de Bombas',
-    desc: 'Manutenção preventiva e corretiva de bombas de recalque, piscina e incêndio. Diagnóstico e peças originais.',
+    desc: 'Manutenção preventiva e corretiva de bombas de recalque, piscina e incêndio. Diagnóstico por IA e peças originais.',
+    tag: 'IA Preditiva',
   },
   {
     icon: 'panel',
     titulo: 'Painéis Elétricos',
-    desc: 'Confecção, instalação e modernização de painéis elétricos com automação e proteção contra surtos.',
+    desc: 'Confecção, instalação e modernização de painéis elétricos com automação inteligente e proteção contra surtos.',
   },
   {
     icon: 'generator',
     titulo: 'Geradores',
-    desc: 'Manutenção e suporte de geradores de emergência. Testes periódicos e disponibilidade 24/7.',
+    desc: 'Manutenção e suporte de geradores de emergência. Monitoramento remoto via IA e disponibilidade 24/7.',
+    tag: 'Monitoramento IA',
   },
   {
-    icon: 'wrench',
-    titulo: 'Manutenção Industrial',
-    desc: 'Manutenção de máquinas e equipamentos industriais. Diagnóstico técnico e reparo especializado.',
+    icon: 'brain',
+    titulo: 'Monitoramento Inteligente',
+    desc: 'Sensores IoT + Inteligência Artificial para detectar anomalias antes que virem problemas. Alertas automáticos.',
+    destaque: true,
+    tag: 'Exclusivo',
   },
 ];
 ---
@@ -50,14 +57,14 @@ const servicos = [
 <section id="servicos" class="servicos" aria-labelledby="servicos-titulo">
 
   <!-- Cabeçalho da seção -->
-  <div class="section-header" data-reveal style="--reveal-delay: 0ms">
+  <div class="section-header-wrap" data-reveal style="--reveal-delay: 0ms">
     <div class="section-badge">O que fazemos</div>
     <h2 id="servicos-titulo" class="section-title">
-      Serviços especializados para seu condomínio
+      Serviços com <span class="text-gradient">tecnologia de ponta</span>
     </h2>
     <p class="section-sub">
       Da manutenção preventiva à instalação completa —
-      tudo com equipe certificada e garantia de serviço.
+      tudo com equipe certificada, IA integrada e garantia de serviço.
     </p>
   </div>
 
@@ -65,11 +72,16 @@ const servicos = [
   <ul class="servicos-grid" role="list">
     {servicos.map((s, i) => (
       <li
-        class="servico-card"
+        class:list={['servico-card', { 'servico-destaque': s.destaque }]}
         style={`--card-delay: ${i * 80}ms`}
       >
-        <!-- Ícone em container -->
-        <div class="servico-icon" set:html={icons[s.icon]} />
+        {/* Tag AI */}
+        {s.tag && (
+          <span class="servico-tag">{s.tag}</span>
+        )}
+
+        {/* Ícone em container */}
+        <div class:list={['servico-icon', { 'servico-icon-ai': s.destaque }]} set:html={icons[s.icon]} />
 
         <div class="servico-body">
           <h3 class="servico-titulo">{s.titulo}</h3>
@@ -79,75 +91,66 @@ const servicos = [
     ))}
   </ul>
 
+  <!-- CTA intermediário -->
+  <div class="servicos-cta" data-reveal style="--reveal-delay: 200ms">
+    <p class="servicos-cta-text">Precisa de algum desses serviços?</p>
+    <a href="#contato" class="servicos-cta-btn">
+      Solicitar Orçamento Grátis
+      <svg viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 10h10M11 6l4 4-4 4"/>
+      </svg>
+    </a>
+  </div>
+
 </section>
 
 <style>
   .servicos {
     background-color: var(--color-bg);
-    padding: 120px 1.5rem;
+    padding: 100px 1.5rem;
+    position: relative;
   }
 
   /* ── Cabeçalho ── */
-  .section-header {
+  .section-header-wrap {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     gap: 1.25rem;
-    margin-bottom: 4rem;
+    margin-bottom: 3.5rem;
     max-width: 640px;
     margin-inline: auto;
-    margin-bottom: 4rem;
-  }
-
-  .section-badge {
-    display: inline-flex;
-    width: fit-content;
-    padding: 0.375rem 0.875rem;
-    border: 1px solid rgba(201, 162, 99, 0.3);
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--color-gold);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .section-title {
-    font-size: clamp(1.75rem, 3.5vw, 2.625rem);
-    font-weight: 700;
-    line-height: 1.15;
-    color: var(--color-text);
-    letter-spacing: -0.02em;
-  }
-
-  .section-sub {
-    font-size: 1rem;
-    color: var(--color-muted);
-    max-width: 520px;
-    line-height: 1.7;
   }
 
   /* ── Grade ── */
   .servicos-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    max-width: 900px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    max-width: 1100px;
     margin: 0 auto;
     list-style: none;
     padding: 0;
   }
 
-  /* Centraliza o 5.º card (ímpar e último) */
-  .servico-card:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-    justify-self: center;
-    width: calc(50% - 0.75rem);
+  /* Card com destaque ocupa 2 + 1 na última linha */
+  .servico-destaque {
+    grid-column: span 1;
+  }
+
+  /* Última linha: centralizar se ímpar */
+  .servicos-grid > :nth-child(4) {
+    grid-column: 1 / 2;
+  }
+
+  .servicos-grid > :nth-child(5) {
+    grid-column: 2 / 3;
   }
 
   /* ── Card ── */
   .servico-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
@@ -158,21 +161,55 @@ const servicos = [
     transition:
       border-color 300ms ease,
       box-shadow 300ms ease,
-      opacity 400ms ease,
-      transform 400ms ease;
+      transform 300ms ease,
+      opacity 500ms ease,
+      translate 500ms ease;
     /* Estado inicial para animação de entrada */
     opacity: 0;
-    transform: translateY(20px);
+    translate: 0 20px;
+    overflow: hidden;
   }
 
   .servico-card.is-visible {
     opacity: 1;
-    transform: translateY(0);
+    translate: 0 0;
   }
 
   .servico-card:hover {
-    border-color: rgba(201, 162, 99, 0.4);
-    box-shadow: 0 0 32px rgba(201, 162, 99, 0.08);
+    border-color: rgba(0, 200, 255, 0.2);
+    box-shadow:
+      0 0 32px rgba(0, 200, 255, 0.06),
+      0 8px 32px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+
+  /* Card destaque (IA) */
+  .servico-destaque {
+    border-color: rgba(0, 200, 255, 0.15);
+    background: linear-gradient(135deg, rgba(0, 200, 255, 0.04), rgba(124, 58, 237, 0.04));
+  }
+
+  .servico-destaque:hover {
+    border-color: rgba(0, 200, 255, 0.35);
+    box-shadow:
+      0 0 48px rgba(0, 200, 255, 0.1),
+      0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Tag */
+  .servico-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 0.2rem 0.625rem;
+    border-radius: 999px;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    background: rgba(0, 200, 255, 0.08);
+    border: 1px solid rgba(0, 200, 255, 0.15);
   }
 
   /* ── Ícone ── */
@@ -184,8 +221,20 @@ const servicos = [
     height: 48px;
     flex-shrink: 0;
     border-radius: 12px;
-    background-color: rgba(201, 162, 99, 0.1);
-    color: var(--color-gold);
+    background: rgba(0, 200, 255, 0.06);
+    border: 1px solid rgba(0, 200, 255, 0.08);
+    color: var(--color-primary);
+    transition: box-shadow 300ms ease;
+  }
+
+  .servico-card:hover .servico-icon {
+    box-shadow: 0 0 20px rgba(0, 200, 255, 0.12);
+  }
+
+  .servico-icon-ai {
+    background: linear-gradient(135deg, rgba(0, 200, 255, 0.1), rgba(124, 58, 237, 0.1));
+    border-color: rgba(0, 200, 255, 0.15);
+    animation: glow-pulse 3s ease-in-out infinite;
   }
 
   /* ── Texto ── */
@@ -208,8 +257,60 @@ const servicos = [
     line-height: 1.65;
   }
 
+  /* ── CTA intermediário ── */
+  .servicos-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    text-align: center;
+  }
+
+  .servicos-cta-text {
+    font-size: 1rem;
+    color: var(--color-muted);
+  }
+
+  .servicos-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.75rem 1.75rem;
+    border-radius: 10px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #00a8e8 0%, #0077b6 100%);
+    text-decoration: none;
+    box-shadow: 0 0 20px rgba(0, 200, 255, 0.2);
+    transition:
+      box-shadow 300ms ease,
+      transform 150ms ease;
+  }
+
+  .servicos-cta-btn:hover {
+    box-shadow: 0 0 36px rgba(0, 200, 255, 0.35);
+    transform: translateY(-1px);
+  }
+
   /* ── Responsividade ── */
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
+    .servicos-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .servicos-grid > :nth-child(4),
+    .servicos-grid > :nth-child(5) {
+      grid-column: auto;
+    }
+
+    .servico-destaque {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 640px) {
     .servicos {
       padding: 80px 1.25rem;
     }
@@ -218,11 +319,8 @@ const servicos = [
       grid-template-columns: 1fr;
     }
 
-    /* Remove centralização especial em mobile (1 col) */
-    .servico-card:last-child:nth-child(odd) {
+    .servico-destaque {
       grid-column: auto;
-      justify-self: auto;
-      width: auto;
     }
   }
 </style>
@@ -233,7 +331,6 @@ const servicos = [
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /** Revela todos os cards imediatamente sem animação */
   function revealInstant(): void {
     cards.forEach((card) => {
       card.style.transition = 'none';
@@ -241,10 +338,9 @@ const servicos = [
     });
   }
 
-  /** Revela os cards com delay escalonado de 80ms entre cada um */
   function revealStaggered(): void {
     cards.forEach((card, i) => {
-      setTimeout(() => card.classList.add('is-visible'), i * 80);
+      setTimeout(() => card.classList.add('is-visible'), i * 100);
     });
   }
 

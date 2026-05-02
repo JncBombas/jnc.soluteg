@@ -1,10 +1,8 @@
 ---
 /**
  * Tecnologia.astro
- * Seção com 3 pilares IoT e mockup de celular sticky (desktop)
- * que troca de tela conforme o pilar ativo via Intersection Observer.
+ * Seção com 3 pilares IoT/IA e mockup sticky com troca de tela.
  */
-
 const checkIcon = `<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="2 8 6 12 14 4"/></svg>`;
 
 interface Pilar {
@@ -19,105 +17,68 @@ const pilares: Pilar[] = [
   {
     id: 'pilar-iot',
     icone: 'gota',
-    titulo: 'Monitoramento em tempo real',
-    desc: "Sensores nas caixas d'água enviam dados a cada 30 segundos. Você acompanha o nível, histórico e alertas pelo celular — de qualquer lugar.",
+    titulo: 'IA que monitora em tempo real',
+    desc: "Sensores IoT + algoritmos de IA analisam dados a cada 30 segundos. Predição de falhas, alertas automáticos e histórico completo — tudo no seu celular.",
     features: [
-      'Nível atualizado a cada 30 segundos',
-      'Histórico de 30 dias',
-      'Alertas configuráveis por porcentagem',
+      'Análise preditiva por machine learning',
+      'Histórico de 30 dias com tendências',
+      'Alertas inteligentes configuráveis',
     ],
   },
   {
     id: 'pilar-wpp',
     icone: 'mensagem',
-    titulo: 'Notificação automática via WhatsApp',
-    desc: 'Quando o sensor detecta uma anomalia, o sistema abre uma ordem de serviço e notifica o técnico automaticamente — sem depender de ninguém ligar.',
+    titulo: 'Automação inteligente via WhatsApp',
+    desc: 'Quando a IA detecta anomalia, abre OS automaticamente e notifica o técnico — sem intervenção humana. Tempo de resposta: 3 segundos.',
     features: [
-      'OS aberta automaticamente',
-      'Técnico notificado em segundos',
-      'Você recebe confirmação de atendimento',
+      'OS aberta automaticamente pela IA',
+      'Técnico notificado em 3 segundos',
+      'Confirmação de atendimento rastreada',
     ],
   },
   {
     id: 'pilar-portal',
     icone: 'documento',
-    titulo: 'Histórico e documentos no portal',
-    desc: 'Acesse relatórios de visita, notas fiscais, orçamentos aprovados e o histórico completo de serviços — tudo em um portal exclusivo.',
+    titulo: 'Portal com inteligência de dados',
+    desc: 'Relatórios gerados por IA, dashboards em tempo real e documentos organizados. Tudo em um portal exclusivo para o síndico.',
     features: [
-      'Documentos organizados por tipo',
+      'Relatórios automáticos por IA',
       'Orçamentos com assinatura digital',
-      'Acompanhamento de OS em tempo real',
+      'Dashboard de performance em tempo real',
     ],
   },
 ];
 ---
 
 <section id="tecnologia" class="tecnologia" aria-labelledby="tec-titulo">
-
-  <!-- Cabeçalho -->
-  <div class="section-header" data-reveal style="--reveal-delay: 0ms">
-    <div class="section-badge">Além do serviço</div>
+  <div class="section-header-wrap" data-reveal style="--reveal-delay: 0ms">
+    <div class="section-badge">Tecnologia exclusiva</div>
     <h2 id="tec-titulo" class="section-title">
-      Tecnologia que trabalha
-      <span class="text-gold">enquanto você dorme</span>
+      <span class="text-gradient">Inteligência Artificial</span> que trabalha enquanto você dorme
     </h2>
     <p class="section-sub">
-      O Sistema
-      <img
-        src="/1aa.png"
-        alt="Soluteg"
-        class="inline-logo-soluteg"
-        width="56"
-        height="17"
-        loading="lazy"
-        decoding="async"
-      />
-      monitora seu condomínio 24 horas por dia e age
-      automaticamente quando algo sai do normal.
+      O Sistema <img src="/1aa.png" alt="Soluteg" class="inline-logo" width="56" height="17" loading="lazy" decoding="async" /> usa IA para monitorar, prever falhas e agir automaticamente — 24/7.
     </p>
   </div>
 
-  <!-- Corpo: pilares + mockup -->
   <div class="tec-body">
-
-    <!-- ── Coluna esquerda: 3 pilares ── -->
     <div class="tec-pillars">
-
       {pilares.map((p, i) => (
-        <article
-          class="tec-pilar"
-          id={p.id}
-          data-pilar-index={i}
-          aria-label={p.titulo}
-        >
-          <!-- Ícone -->
+        <article class="tec-pilar" id={p.id} data-pilar-index={i} aria-label={p.titulo}>
           <div class="pilar-icon-wrap">
             {p.icone === 'gota' && (
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
-              </svg>
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
             )}
             {p.icone === 'mensagem' && (
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-              </svg>
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             )}
             {p.icone === 'documento' && (
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <polyline points="14 2 14 8 20 8"/>
-                <line x1="16" y1="13" x2="8" y2="13"/>
-                <line x1="16" y1="17" x2="8" y2="17"/>
-                <polyline points="10 9 9 9 8 9"/>
-              </svg>
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
             )}
           </div>
-
           <div class="pilar-content">
             <h3 class="pilar-titulo">{p.titulo}</h3>
             <p class="pilar-desc">{p.desc}</p>
-
-            <!-- Feature list com checkmark -->
             <ul class="pilar-features" role="list">
               {p.features.map((f) => (
                 <li class="pilar-feature">
@@ -129,807 +90,146 @@ const pilares: Pilar[] = [
           </div>
         </article>
       ))}
+    </div>
 
-    </div><!-- /tec-pillars -->
-
-    <!-- ── Coluna direita: mockup sticky ── -->
     <aside class="tec-mockup-col" aria-hidden="true">
+      <div class="tec-phone-glow"></div>
       <div class="tec-phone">
-
-        <!-- Câmera frontal -->
         <div class="phone-notch"></div>
-
-        <!-- Área de telas empilhadas -->
         <div class="phone-screens-area">
-
-          <!-- ═══ Tela 1 — Monitoramento IoT ═══ -->
+          <!-- Tela 1 — IoT -->
           <div class="tec-screen is-active" data-screen="0">
-            <div class="app-topbar">
-              <span class="app-topbar-title">Caixas d'água</span>
-              <span class="app-live">
-                <span class="live-dot"></span>Ao vivo
-              </span>
-            </div>
-
-            <div class="app-card">
-              <div class="app-card-row">
-                <span class="app-card-label">Nível atual</span>
-                <span class="app-card-value">71%</span>
-              </div>
-              <div class="level-track" role="progressbar" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100">
-                <div class="level-fill" style="width: 71%"></div>
-              </div>
-            </div>
-
-            <div class="app-badges">
-              <span class="badge badge-red"><span class="badge-dot"></span>SCI 20%</span>
-              <span class="badge badge-yellow"><span class="badge-dot"></span>Alerta 80%</span>
-              <span class="badge badge-red"><span class="badge-dot"></span>Crítico 15%</span>
-            </div>
-
-            <div class="app-chart-wrap">
-              <p class="chart-lbl">Histórico — 24h</p>
-              <svg viewBox="0 0 200 52" fill="none" xmlns="http://www.w3.org/2000/svg" class="chart-svg" aria-hidden="true">
-                <defs>
-                  <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#C9A263" stop-opacity="0.2"/>
-                    <stop offset="100%" stop-color="#C9A263" stop-opacity="0"/>
-                  </linearGradient>
-                </defs>
-                <path d="M0 40 L25 33 L50 27 L75 30 L100 20 L125 16 L150 19 L175 14 L200 12 L200 52 L0 52Z" fill="url(#g1)"/>
-                <path d="M0 40 L25 33 L50 27 L75 30 L100 20 L125 16 L150 19 L175 14 L200 12" stroke="#C9A263" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="200" cy="12" r="3" fill="#C9A263"/>
-              </svg>
-            </div>
-          </div><!-- /tela 1 -->
-
-          <!-- ═══ Tela 2 — WhatsApp automático ═══ -->
+            <div class="app-topbar"><span class="topbar-title">Caixas d'água</span><span class="app-live"><span class="live-dot"></span>IA ativa</span></div>
+            <div class="app-card"><div class="app-card-row"><span class="lbl">Nível atual</span><span class="val">71%</span></div><div class="lvl-track"><div class="lvl-fill" style="width:71%"></div></div></div>
+            <div class="app-badges-row"><span class="bdg bdg-red"><span class="bdg-dot"></span>SCI 20%</span><span class="bdg bdg-yellow"><span class="bdg-dot"></span>Alerta 80%</span></div>
+            <div class="app-chart-wrap"><p class="chart-lbl">Predição IA — 24h</p><svg viewBox="0 0 200 52" fill="none" class="chart-svg" aria-hidden="true"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00c8ff" stop-opacity="0.2"/><stop offset="100%" stop-color="#00c8ff" stop-opacity="0"/></linearGradient></defs><path d="M0 40 L25 33 L50 27 L75 30 L100 20 L100 52 L0 52Z" fill="url(#g1)"/><path d="M0 40 L25 33 L50 27 L75 30 L100 20" stroke="#00c8ff" stroke-width="1.5" stroke-linecap="round"/><path d="M100 20 L125 16 L150 19 L175 14 L200 12" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4 3" stroke-linecap="round"/><circle cx="100" cy="20" r="3" fill="#00c8ff"/></svg></div>
+          </div>
+          <!-- Tela 2 — WhatsApp -->
           <div class="tec-screen" data-screen="1">
-            <div class="app-topbar">
-              <span class="app-topbar-title">Soluteg Alertas</span>
-              <span class="wpp-icon" aria-label="WhatsApp">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="#25D366" aria-hidden="true">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-              </span>
-            </div>
-
-            <!-- Bolha de alerta -->
+            <div class="app-topbar"><span class="topbar-title">Soluteg IA</span><span class="wpp-badge">WhatsApp</span></div>
             <div class="wpp-messages">
-              <div class="wpp-bubble wpp-system">
-                <p class="wpp-bubble-label">Soluteg Sistema</p>
-                <p class="wpp-bubble-text">
-                  ⚠️ <strong>Caixa d'água — Nível crítico 15%.</strong>
-                  OS #0047 aberta automaticamente.
-                </p>
-                <span class="wpp-time">14h28</span>
-              </div>
-
-              <div class="wpp-bubble wpp-system">
-                <p class="wpp-bubble-label">Soluteg Sistema</p>
-                <p class="wpp-bubble-text">
-                  🔧 Técnico João notificado. Tempo de resposta: <strong>3s</strong>.
-                </p>
-                <span class="wpp-time">14h28</span>
-              </div>
-
-              <div class="wpp-bubble wpp-confirm">
-                <p class="wpp-bubble-label">Técnico João</p>
-                <p class="wpp-bubble-text">
-                  ✅ Atendimento confirmado. Chego em ~20 min.
-                </p>
-                <span class="wpp-time">14h32</span>
-              </div>
+              <div class="wpp-bubble wpp-system"><p class="wpp-label">Soluteg IA</p><p class="wpp-text">⚠️ <strong>Nível crítico 15%</strong> detectado pela IA. OS #0047 aberta automaticamente.</p><span class="wpp-time">14h28</span></div>
+              <div class="wpp-bubble wpp-system"><p class="wpp-label">Soluteg IA</p><p class="wpp-text">🔧 Técnico João notificado. Resposta: <strong>3s</strong></p><span class="wpp-time">14h28</span></div>
+              <div class="wpp-bubble wpp-confirm"><p class="wpp-label">Técnico João</p><p class="wpp-text">✅ Confirmado. Chego em ~20 min.</p><span class="wpp-time">14h32</span></div>
             </div>
-          </div><!-- /tela 2 -->
-
-          <!-- ═══ Tela 3 — Portal do cliente ═══ -->
+          </div>
+          <!-- Tela 3 — Portal -->
           <div class="tec-screen" data-screen="2">
-            <div class="app-topbar">
-              <span class="app-topbar-title">Portal do Cliente</span>
-            </div>
-
-            <div class="portal-section-label">Ordens de Serviço</div>
-
+            <div class="app-topbar"><span class="topbar-title">Portal IA</span></div>
+            <div class="portal-lbl">Ordens de Serviço</div>
             <ul class="portal-list" role="list">
-              <li class="portal-item">
-                <div class="portal-item-icon portal-icon-check" aria-hidden="true">
-                  <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
-                </div>
-                <div class="portal-item-body">
-                  <span class="portal-item-title">Reparo bomba piscina</span>
-                  <span class="portal-item-meta">Concluída · 06/04/2026</span>
-                </div>
-                <span class="portal-status portal-status-done">Concluída</span>
-              </li>
-
-              <li class="portal-item">
-                <div class="portal-item-icon portal-icon-check" aria-hidden="true">
-                  <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
-                </div>
-                <div class="portal-item-body">
-                  <span class="portal-item-title">Instalação painel</span>
-                  <span class="portal-item-meta">Concluída · 15/03/2026</span>
-                </div>
-                <span class="portal-status portal-status-done">Concluída</span>
-              </li>
-
-              <li class="portal-item">
-                <div class="portal-item-icon portal-icon-pending" aria-hidden="true">
-                  <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><polyline points="8 5 8 8 10 10"/></svg>
-                </div>
-                <div class="portal-item-body">
-                  <span class="portal-item-title">Manutenção gerador</span>
-                  <span class="portal-item-meta">Agendada · 28/04/2026</span>
-                </div>
-                <span class="portal-status portal-status-pending">Agendada</span>
-              </li>
-
-              <li class="portal-item">
-                <div class="portal-item-icon portal-icon-doc" aria-hidden="true">
-                  <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="1" width="12" height="14" rx="1.5"/><line x1="5" y1="6" x2="11" y2="6"/><line x1="5" y1="9" x2="9" y2="9"/></svg>
-                </div>
-                <div class="portal-item-body">
-                  <span class="portal-item-title">NF-e Março 2026</span>
-                  <span class="portal-item-meta">Documento · PDF</span>
-                </div>
-                <span class="portal-status portal-status-doc">📄</span>
-              </li>
+              <li class="portal-item"><div class="p-icon p-icon-ok"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg></div><div class="p-body"><span class="p-title">Reparo bomba piscina</span><span class="p-meta">Concluída · 06/04</span></div><span class="p-status p-done">Concluída</span></li>
+              <li class="portal-item"><div class="p-icon p-icon-ok"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg></div><div class="p-body"><span class="p-title">Instalação painel</span><span class="p-meta">Concluída · 15/03</span></div><span class="p-status p-done">Concluída</span></li>
+              <li class="portal-item"><div class="p-icon p-icon-pend"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><polyline points="8 5 8 8 10 10"/></svg></div><div class="p-body"><span class="p-title">Manutenção gerador</span><span class="p-meta">Agendada · 28/04</span></div><span class="p-status p-pend">Agendada</span></li>
             </ul>
-          </div><!-- /tela 3 -->
-
-        </div><!-- /phone-screens-area -->
-      </div><!-- /tec-phone -->
+          </div>
+        </div>
+      </div>
     </aside>
-
-  </div><!-- /tec-body -->
-
-  <!-- CTA da seção -->
-  <div class="tec-cta">
-    <p class="tec-cta-text">Quer isso no seu condomínio?</p>
-    <a href="#contato" class="cta-primary">
-      Falar com especialista
-    </a>
   </div>
 
+  <div class="tec-cta">
+    <p class="tec-cta-text">Quer IA no seu condomínio?</p>
+    <a href="#contato" class="tec-cta-btn">Agendar Demonstração Grátis</a>
+  </div>
 </section>
 
 <style>
-  /* ── Seção ── */
-  .tecnologia {
-    background-color: var(--color-surface);
-    border-top: 1px solid var(--color-border);
-    padding: 120px 1.5rem;
-    opacity: 0;
-    transition: opacity 600ms ease;
-  }
-
-  .tecnologia.is-visible {
-    opacity: 1;
-  }
-
-  /* ── Cabeçalho ── */
-  .section-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1.25rem;
-    max-width: 640px;
-    margin: 0 auto 5rem;
-  }
-
-  .section-badge {
-    display: inline-flex;
-    padding: 0.375rem 0.875rem;
-    border: 1px solid rgba(201, 162, 99, 0.3);
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--color-gold);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .section-title {
-    font-size: clamp(1.75rem, 3.5vw, 2.625rem);
-    font-weight: 700;
-    line-height: 1.15;
-    color: var(--color-text);
-    letter-spacing: -0.02em;
-  }
-
-  .text-gold {
-    color: var(--color-gold);
-  }
-
-  .section-sub {
-    font-size: 1rem;
-    color: var(--color-muted);
-    line-height: 1.7;
-  }
-
-  /* Logo Soluteg inline no parágrafo */
-  .inline-logo-soluteg {
-    display: inline-block;
-    vertical-align: middle;
-    height: 1.6em;
-    width: auto;
-    opacity: 0.85;
-    margin: 0 4px;
-    position: relative;
-    top: 0.05em;
-  }
-
-  /* ── Corpo (pilares + mockup) ── */
-  .tec-body {
-    display: flex;
-    align-items: flex-start;
-    gap: 4rem;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  /* ── Pilares ── */
-  .tec-pillars {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .tec-pilar {
-    display: flex;
-    gap: 1.5rem;
-    padding: 2.5rem 1.75rem;
-    border-left: 3px solid transparent;
-    transition:
-      border-color 300ms ease,
-      background-color 300ms ease;
-    border-radius: 0 12px 12px 0;
-  }
-
-  /* Pilar ativo: borda dourada + fundo sutil */
-  .tec-pilar.is-active {
-    border-left-color: var(--color-gold);
-    background-color: rgba(201, 162, 99, 0.04);
-  }
-
-  /* Ícone do pilar */
-  .pilar-icon-wrap {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    background-color: rgba(201, 162, 99, 0.1);
-    color: var(--color-gold);
-    padding-top: 11px;
-  }
-
-  /* Animação de pulso sutil para ícone de gota */
-  .tec-pilar:first-child .pilar-icon-wrap {
-    animation: pulse-icon 3s ease-in-out infinite;
-  }
-
-  @keyframes pulse-icon {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(201, 162, 99, 0); }
-    50%       { box-shadow: 0 0 0 6px rgba(201, 162, 99, 0.1); }
-  }
-
-  .pilar-content {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .pilar-titulo {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--color-text);
-    line-height: 1.3;
-  }
-
-  .pilar-desc {
-    font-size: 0.9rem;
-    color: var(--color-muted);
-    line-height: 1.7;
-  }
-
-  /* Feature list */
-  .pilar-features {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    list-style: none;
-    padding: 0;
-    margin-top: 0.25rem;
-  }
-
-  .pilar-feature {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    font-size: 0.875rem;
-    color: var(--color-muted);
-  }
-
-  .feature-check {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: rgba(201, 162, 99, 0.12);
-    color: var(--color-gold);
-  }
-
-  /* ── Coluna mockup (sticky) ── */
-  .tec-mockup-col {
-    flex: 0 0 260px;
-    position: sticky;
-    top: 96px; /* 64px header + 32px folga */
-  }
-
-  /* ── Phone ── */
-  .tec-phone {
-    width: 260px;
-    border: 2px solid var(--color-border);
-    border-radius: 44px;
-    background-color: var(--color-bg);
-    box-shadow:
-      inset 0 0 0 1px rgba(255, 255, 255, 0.04),
-      0 32px 80px rgba(0, 0, 0, 0.5),
-      0 0 40px rgba(201, 162, 99, 0.06);
-    overflow: hidden;
-    padding-bottom: 1.25rem;
-  }
-
-  .phone-notch {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.07);
-    margin: 14px auto 10px;
-  }
-
-  /* Área de telas empilhadas — posição relativa para o absolute dos screens */
-  .phone-screens-area {
-    position: relative;
-    height: 440px;
-    margin: 0 10px;
-    overflow: hidden;
-  }
-
-  /* ── Telas individuais ── */
-  .tec-screen {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-    padding: 0.5rem 0;
-    opacity: 0;
-    transition: opacity 300ms ease;
-    pointer-events: none;
-    overflow-y: auto;
-    /* Oculta scrollbar visual */
-    scrollbar-width: none;
-  }
-  .tec-screen::-webkit-scrollbar { display: none; }
-
-  .tec-screen.is-active {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* ── Componentes de app compartilhados ── */
-  .app-topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.5rem 0.75rem;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 10px;
-    flex-shrink: 0;
-  }
-
-  .app-topbar-title {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--color-text);
-  }
-
-  .app-live {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.625rem;
-    font-weight: 500;
-    color: #4ade80;
-  }
-
-  .live-dot {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #4ade80;
-    animation: blink 2s ease-in-out infinite;
-    flex-shrink: 0;
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0.4; }
-  }
-
-  .app-card {
-    padding: 0.625rem 0.75rem;
-    border: 1px solid var(--color-border);
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.02);
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    flex-shrink: 0;
-  }
-
-  .app-card-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .app-card-label {
-    font-size: 0.625rem;
-    font-weight: 500;
-    color: var(--color-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-  }
-
-  .app-card-value {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--color-gold);
-  }
-
-  .level-track {
-    height: 7px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
-    overflow: hidden;
-  }
-
-  .level-fill {
-    height: 100%;
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--color-gold), var(--color-gold-light));
-  }
-
-  .app-badges {
-    display: flex;
-    gap: 0.3rem;
-    flex-wrap: wrap;
-    flex-shrink: 0;
-  }
-
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 0.2rem 0.45rem;
-    border-radius: 999px;
-    font-size: 0.5625rem;
-    font-weight: 600;
-  }
-
-  .badge-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .badge-red {
-    background: rgba(239, 68, 68, 0.12);
-    color: #f87171;
-    border: 1px solid rgba(239, 68, 68, 0.2);
-  }
-  .badge-red .badge-dot { background: #ef4444; }
-
-  .badge-yellow {
-    background: rgba(234, 179, 8, 0.12);
-    color: #facc15;
-    border: 1px solid rgba(234, 179, 8, 0.2);
-  }
-  .badge-yellow .badge-dot { background: #eab308; }
-
-  .app-chart-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
-    padding: 0.625rem 0.75rem;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--color-border);
-    border-radius: 10px;
-    flex-shrink: 0;
-  }
-
-  .chart-lbl {
-    font-size: 0.5625rem;
-    font-weight: 500;
-    color: var(--color-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-  }
-
-  .chart-svg {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  /* ── Tela 2: WhatsApp ── */
-  .wpp-icon {
-    display: flex;
-    align-items: center;
-  }
-
-  .wpp-messages {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 0 0.125rem;
-  }
-
-  .wpp-bubble {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    padding: 0.5rem 0.625rem;
-    border-radius: 10px;
-    border-bottom-left-radius: 3px;
-  }
-
-  .wpp-system {
-    background: rgba(37, 211, 102, 0.08);
-    border: 1px solid rgba(37, 211, 102, 0.15);
-  }
-
-  .wpp-confirm {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--color-border);
-    align-self: flex-end;
-    border-radius: 10px;
-    border-bottom-right-radius: 3px;
-  }
-
-  .wpp-bubble-label {
-    font-size: 0.5625rem;
-    font-weight: 600;
-    color: #25D366;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
-  .wpp-bubble-text {
-    font-size: 0.6875rem;
-    color: var(--color-text);
-    line-height: 1.5;
-  }
-
-  .wpp-time {
-    font-size: 0.5625rem;
-    color: var(--color-muted);
-    align-self: flex-end;
-  }
-
-  /* ── Tela 3: Portal ── */
-  .portal-section-label {
-    font-size: 0.5625rem;
-    font-weight: 600;
-    color: var(--color-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
-    padding: 0 0.125rem;
-    flex-shrink: 0;
-  }
-
-  .portal-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
-    list-style: none;
-    padding: 0;
-  }
-
-  .portal-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.625rem;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.02);
-  }
-
-  .portal-item-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 22px;
-    height: 22px;
-    border-radius: 6px;
-    flex-shrink: 0;
-  }
-
-  .portal-icon-check {
-    background: rgba(74, 222, 128, 0.1);
-    color: #4ade80;
-  }
-
-  .portal-icon-pending {
-    background: rgba(250, 204, 21, 0.1);
-    color: #facc15;
-  }
-
-  .portal-icon-doc {
-    background: rgba(201, 162, 99, 0.1);
-    color: var(--color-gold);
-  }
-
-  .portal-item-body {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    flex: 1;
-    min-width: 0;
-  }
-
-  .portal-item-title {
-    font-size: 0.6875rem;
-    font-weight: 500;
-    color: var(--color-text);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .portal-item-meta {
-    font-size: 0.5625rem;
-    color: var(--color-muted);
-  }
-
-  .portal-status {
-    font-size: 0.5625rem;
-    font-weight: 600;
-    padding: 0.15rem 0.375rem;
-    border-radius: 999px;
-    flex-shrink: 0;
-    white-space: nowrap;
-  }
-
-  .portal-status-done {
-    background: rgba(74, 222, 128, 0.1);
-    color: #4ade80;
-  }
-
-  .portal-status-pending {
-    background: rgba(250, 204, 21, 0.1);
-    color: #facc15;
-  }
-
-  .portal-status-doc {
-    background: transparent;
-  }
-
-  /* ── CTA da seção ── */
-  .tec-cta {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.25rem;
-    margin-top: 5rem;
-    text-align: center;
-  }
-
-  .tec-cta-text {
-    font-size: 1.125rem;
-    font-weight: 500;
-    color: var(--color-muted);
-  }
-
-  .cta-primary {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.75rem 2rem;
-    border-radius: 8px;
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: #0F1117;
-    background-color: var(--color-gold);
-    text-decoration: none;
-    box-shadow: 0 0 24px rgba(201, 162, 99, 0.3);
-    transition:
-      background-color 200ms ease,
-      box-shadow 200ms ease;
-  }
-
-  .cta-primary:hover,
-  .cta-primary:focus-visible {
-    background-color: var(--color-gold-light);
-    box-shadow: 0 0 32px rgba(232, 192, 112, 0.4);
-    outline: none;
-  }
-
-  /* ── Responsividade ── */
-  @media (max-width: 1024px) {
-    .tec-body {
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    /* Mockup estático, centralizado, sem sticky */
-    .tec-mockup-col {
-      display: flex;
-      justify-content: center;
-      position: static;
-      flex: 0 0 auto;
-      width: 100%;
-    }
-
-    .tec-phone {
-      width: 220px;
-    }
-
-    /* Área de telas ligeiramente menor no mobile */
-    .phone-screens-area {
-      height: 380px;
-    }
-
-    /* Pilares como cards com borda completa */
-    .tec-pilar {
-      border: 1px solid var(--color-border);
-      border-left: 3px solid var(--color-gold);
-      border-radius: 12px;
-      background-color: rgba(201, 162, 99, 0.02);
-    }
-
-    /* Estado ativo continua destacado */
-    .tec-pilar.is-active {
-      border-left-color: var(--color-gold);
-      background-color: rgba(201, 162, 99, 0.05);
-      box-shadow: 0 0 20px rgba(201, 162, 99, 0.06);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .tecnologia {
-      padding: 80px 1.25rem;
-    }
-
-    .tec-pilar {
-      padding: 1.5rem 1.25rem;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .pilar-icon-wrap {
-      width: 40px;
-      height: 40px;
-      padding-top: 9px;
-    }
-
-    /* Reduz margem do cabeçalho da seção */
-    .section-header {
-      margin-bottom: 2.5rem;
-    }
+  .tecnologia { background-color: var(--color-surface); border-top: 1px solid var(--color-border); padding: 100px 1.5rem; opacity: 0; transition: opacity 600ms ease; position: relative; }
+  .tecnologia.is-visible { opacity: 1; }
+  .tecnologia::before { content:''; position: absolute; top:-1px; left:15%; right:15%; height:1px; background: linear-gradient(90deg, transparent, rgba(0,200,255,0.2), transparent); }
+
+  .section-header-wrap { display:flex; flex-direction:column; align-items:center; text-align:center; gap:1.25rem; max-width:640px; margin:0 auto 4rem; }
+  .inline-logo { display:inline-block; vertical-align:middle; height:1.6em; width:auto; opacity:0.85; margin:0 4px; position:relative; top:0.05em; }
+
+  .tec-body { display:flex; align-items:flex-start; gap:3.5rem; max-width:1100px; margin:0 auto; }
+  .tec-pillars { flex:1; display:flex; flex-direction:column; }
+  .tec-pilar { display:flex; gap:1.5rem; padding:2rem 1.5rem; border-left:3px solid transparent; transition: border-color 300ms ease, background-color 300ms ease; border-radius:0 12px 12px 0; }
+  .tec-pilar.is-active { border-left-color: var(--color-primary); background-color: rgba(0,200,255,0.03); }
+
+  .pilar-icon-wrap { display:flex; align-items:flex-start; justify-content:center; flex-shrink:0; width:44px; height:44px; border-radius:10px; background:rgba(0,200,255,0.06); border:1px solid rgba(0,200,255,0.1); color:var(--color-primary); padding-top:11px; }
+  .tec-pilar:first-child .pilar-icon-wrap { animation: glow-pulse 3s ease-in-out infinite; }
+  .pilar-content { display:flex; flex-direction:column; gap:0.75rem; }
+  .pilar-titulo { font-size:1.125rem; font-weight:600; color:var(--color-text); line-height:1.3; }
+  .pilar-desc { font-size:0.9rem; color:var(--color-muted); line-height:1.7; }
+  .pilar-features { display:flex; flex-direction:column; gap:0.5rem; list-style:none; padding:0; margin-top:0.25rem; }
+  .pilar-feature { display:flex; align-items:center; gap:0.625rem; font-size:0.875rem; color:var(--color-muted); }
+  .feature-check { display:flex; align-items:center; justify-content:center; flex-shrink:0; width:20px; height:20px; border-radius:50%; background:rgba(0,200,255,0.08); color:var(--color-primary); }
+
+  .tec-mockup-col { flex:0 0 260px; position:sticky; top:96px; }
+  .tec-phone-glow { position:absolute; width:280px; height:280px; border-radius:50%; background:radial-gradient(circle,rgba(0,200,255,0.06) 0%,transparent 70%); top:50%; left:50%; transform:translate(-50%,-50%); animation:glow-pulse 4s ease-in-out infinite; pointer-events:none; }
+  .tec-phone { position:relative; width:260px; border:1.5px solid rgba(0,200,255,0.12); border-radius:44px; background-color:var(--color-bg); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03), 0 32px 80px rgba(0,0,0,0.5), 0 0 50px rgba(0,200,255,0.06); overflow:hidden; padding-bottom:1.25rem; }
+  .phone-notch { width:10px; height:10px; border-radius:50%; background:rgba(0,200,255,0.12); margin:14px auto 10px; }
+  .phone-screens-area { position:relative; height:420px; margin:0 10px; overflow:hidden; }
+
+  .tec-screen { position:absolute; inset:0; display:flex; flex-direction:column; gap:0.5rem; padding:0.5rem 0; opacity:0; transition:opacity 400ms ease; pointer-events:none; overflow-y:auto; scrollbar-width:none; }
+  .tec-screen::-webkit-scrollbar { display:none; }
+  .tec-screen.is-active { opacity:1; pointer-events:auto; }
+
+  .app-topbar { display:flex; align-items:center; justify-content:space-between; padding:0.5rem 0.75rem; background:rgba(0,200,255,0.04); border-radius:10px; border:1px solid rgba(0,200,255,0.06); flex-shrink:0; }
+  .topbar-title { font-size:0.75rem; font-weight:600; color:var(--color-text); }
+  .app-live { display:flex; align-items:center; gap:5px; font-size:0.625rem; font-weight:500; color:var(--color-primary); }
+  .live-dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--color-primary); animation:pulse-dot 2s ease-in-out infinite; flex-shrink:0; }
+  .wpp-badge { font-size:0.5625rem; font-weight:600; color:#25D366; background:rgba(37,211,102,0.08); padding:0.15rem 0.4rem; border-radius:999px; border:1px solid rgba(37,211,102,0.15); }
+
+  .app-card { padding:0.625rem 0.75rem; border:1px solid var(--color-border); border-radius:10px; background:rgba(255,255,255,0.02); display:flex; flex-direction:column; gap:0.5rem; flex-shrink:0; }
+  .app-card-row { display:flex; justify-content:space-between; align-items:center; }
+  .lbl { font-size:0.625rem; font-weight:500; color:var(--color-muted); text-transform:uppercase; letter-spacing:0.07em; }
+  .val { font-size:1.125rem; font-weight:700; color:var(--color-primary); }
+  .lvl-track { height:7px; border-radius:999px; background:rgba(255,255,255,0.04); overflow:hidden; }
+  .lvl-fill { height:100%; border-radius:999px; background:linear-gradient(90deg,var(--color-primary),var(--color-accent)); }
+
+  .app-badges-row { display:flex; gap:0.3rem; flex-wrap:wrap; flex-shrink:0; }
+  .bdg { display:inline-flex; align-items:center; gap:4px; padding:0.2rem 0.45rem; border-radius:999px; font-size:0.5625rem; font-weight:600; }
+  .bdg-dot { width:5px; height:5px; border-radius:50%; flex-shrink:0; }
+  .bdg-red { background:rgba(239,68,68,0.1); color:#f87171; border:1px solid rgba(239,68,68,0.15); }
+  .bdg-red .bdg-dot { background:#ef4444; }
+  .bdg-yellow { background:rgba(234,179,8,0.1); color:#facc15; border:1px solid rgba(234,179,8,0.15); }
+  .bdg-yellow .bdg-dot { background:#eab308; }
+
+  .app-chart-wrap { display:flex; flex-direction:column; gap:0.375rem; padding:0.625rem 0.75rem; background:rgba(255,255,255,0.02); border:1px solid var(--color-border); border-radius:10px; flex-shrink:0; }
+  .chart-lbl { font-size:0.5625rem; font-weight:600; color:var(--color-accent-light); text-transform:uppercase; letter-spacing:0.07em; }
+  .chart-svg { width:100%; height:auto; display:block; }
+
+  .wpp-messages { display:flex; flex-direction:column; gap:0.5rem; padding:0 0.125rem; }
+  .wpp-bubble { display:flex; flex-direction:column; gap:0.25rem; padding:0.5rem 0.625rem; border-radius:10px; border-bottom-left-radius:3px; }
+  .wpp-system { background:rgba(37,211,102,0.06); border:1px solid rgba(37,211,102,0.12); }
+  .wpp-confirm { background:rgba(255,255,255,0.03); border:1px solid var(--color-border); align-self:flex-end; border-radius:10px; border-bottom-right-radius:3px; }
+  .wpp-label { font-size:0.5625rem; font-weight:600; color:#25D366; text-transform:uppercase; letter-spacing:0.06em; }
+  .wpp-text { font-size:0.6875rem; color:var(--color-text); line-height:1.5; }
+  .wpp-time { font-size:0.5625rem; color:var(--color-muted); align-self:flex-end; }
+
+  .portal-lbl { font-size:0.5625rem; font-weight:600; color:var(--color-muted); text-transform:uppercase; letter-spacing:0.09em; padding:0 0.125rem; flex-shrink:0; }
+  .portal-list { display:flex; flex-direction:column; gap:0.375rem; list-style:none; padding:0; }
+  .portal-item { display:flex; align-items:center; gap:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--color-border); border-radius:8px; background:rgba(255,255,255,0.02); }
+  .p-icon { display:flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:6px; flex-shrink:0; }
+  .p-icon-ok { background:rgba(74,222,128,0.1); color:#4ade80; }
+  .p-icon-pend { background:rgba(250,204,21,0.1); color:#facc15; }
+  .p-body { display:flex; flex-direction:column; gap:1px; flex:1; min-width:0; }
+  .p-title { font-size:0.6875rem; font-weight:500; color:var(--color-text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .p-meta { font-size:0.5625rem; color:var(--color-muted); }
+  .p-status { font-size:0.5625rem; font-weight:600; padding:0.15rem 0.375rem; border-radius:999px; flex-shrink:0; white-space:nowrap; }
+  .p-done { background:rgba(74,222,128,0.1); color:#4ade80; }
+  .p-pend { background:rgba(250,204,21,0.1); color:#facc15; }
+
+  .tec-cta { display:flex; flex-direction:column; align-items:center; gap:1.25rem; margin-top:4rem; text-align:center; }
+  .tec-cta-text { font-size:1.125rem; font-weight:500; color:var(--color-muted); }
+  .tec-cta-btn { display:inline-flex; align-items:center; padding:0.75rem 2rem; border-radius:10px; font-size:0.9375rem; font-weight:600; color:#fff; background:linear-gradient(135deg,#00a8e8 0%,#0077b6 100%); text-decoration:none; box-shadow:0 0 24px rgba(0,200,255,0.2); transition:box-shadow 300ms ease, transform 150ms ease; }
+  .tec-cta-btn:hover { box-shadow:0 0 40px rgba(0,200,255,0.4); transform:translateY(-1px); }
+
+  @media (max-width:1024px) {
+    .tec-body { flex-direction:column; align-items:center; gap:2rem; }
+    .tec-mockup-col { display:flex; justify-content:center; position:static; flex:0 0 auto; width:100%; }
+    .tec-phone { width:220px; }
+    .phone-screens-area { height:380px; }
+    .tec-pilar { border:1px solid var(--color-border); border-left:3px solid var(--color-primary); border-radius:12px; background-color:rgba(0,200,255,0.02); }
+    .tec-pilar.is-active { background-color:rgba(0,200,255,0.04); box-shadow:0 0 20px rgba(0,200,255,0.06); }
+  }
+  @media (max-width:768px) {
+    .tecnologia { padding:80px 1.25rem; }
+    .tec-pilar { padding:1.5rem 1.25rem; flex-direction:column; gap:1rem; }
+    .pilar-icon-wrap { width:40px; height:40px; padding-top:9px; }
+    .section-header-wrap { margin-bottom:2.5rem; }
   }
 </style>
 
@@ -937,30 +237,21 @@ const pilares: Pilar[] = [
   const section = document.querySelector<HTMLElement>('.tecnologia');
   const pilares = document.querySelectorAll<HTMLElement>('.tec-pilar');
   const screens = document.querySelectorAll<HTMLElement>('.tec-screen');
-
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /** Ativa o pilar e a tela correspondente pelo índice */
   function setActive(index: number): void {
     pilares.forEach((p, i) => p.classList.toggle('is-active', i === index));
     screens.forEach((s, i) => s.classList.toggle('is-active', i === index));
   }
 
-  // ── Observer para fade-in da seção inteira ──
   const sectionObserver = new IntersectionObserver(
     (entries) => {
-      if (entries[0].isIntersecting) {
-        section?.classList.add('is-visible');
-        sectionObserver.disconnect();
-      }
+      if (entries[0].isIntersecting) { section?.classList.add('is-visible'); sectionObserver.disconnect(); }
     },
     { threshold: 0.05 }
   );
-
   if (section) sectionObserver.observe(section);
 
-  // ── Observer para troca de tela conforme pilar ativo ──
-  // rootMargin cria um "hotspot" nos 40% centrais do viewport
   const pilarObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -970,23 +261,15 @@ const pilares: Pilar[] = [
         }
       });
     },
-    {
-      rootMargin: '-30% 0px -30% 0px',
-      threshold: 0,
-    }
+    { rootMargin: '-30% 0px -30% 0px', threshold: 0 }
   );
 
-  // Pilar 0 começa ativo por padrão
   setActive(0);
 
-  // Troca de tela por scroll só em desktop (mockup sticky) — não no mobile/tablet
   function initPilarObserver(): void {
     if (window.innerWidth <= 1024) return;
     pilares.forEach((p) => pilarObserver.observe(p));
   }
 
-  // Aguarda o layout ser calculado
-  if (!reducedMotion) {
-    requestAnimationFrame(initPilarObserver);
-  }
+  if (!reducedMotion) requestAnimationFrame(initPilarObserver);
 </script>
